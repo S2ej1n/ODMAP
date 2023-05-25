@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>공공데이터 API 사용 예제</title>
+    </head>
+    <body>
+        <p id="sample_data"></p>
+        <script>
+            const url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=10&serviceKey=DCb4NCdZNTi9JOr8hjRrJkNekZFCZkItpRNnU5H4VQTMKLoAZPyyhupWaRrJlgT6l5%2BJz8%2FPjqYh%2FJSNrhhPig%3D%3D'
+            dataPane = document.getElementById("sample_data");
+
+            fetch(url)
+            .then(res => res.json())
+            .then(resJson => {
+                dataPane.innerText = JSON.stringify(resJson, null, 1);
+            })
+        </script>
+    </body>
+</html>
