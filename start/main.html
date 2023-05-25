@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title> 오디웹 </title>
+    </head>
+    <style>
+        * {margin:0px; padding:0px;}
+        a {text-decoration:none;}
+        header{
+            height:80px;
+            background-color: aliceblue;
+            position: relative;}
+        .menu{
+            position:absolute;
+            bottom:20px;
+            left:220px;
+            font-size:30px;
+        }
+        .menu li{
+            display: inline;
+            margin-left:200px;
+        }
+        .menu li a{color:black;}
+        .section1 {
+            display:block;
+            padding:85px 25px;
+            color:black;
+            text-align:center;
+            font-size:30px;
+        }
+        .block{
+            display:block;
+            padding:85px 25px;
+            color:black;
+            text-align:center;
+            font-size:2em
+        }
+        .block a {color : black};
+    </style>
+    <body>
+        <!-- 헤더 -->
+        <header>
+            <div class = "menu">
+                <ul>
+                    <li><a href = "">TEST</a></li>
+                    <li><a href = "" >HOSPITAL</a></li>
+                    <li><a onclick="location.href='../login/login.html'">LOGIN</a></li>
+                </ul>
+            </div>
+        </header>
+        <!-- section1  -->
+        <div class = "section1">
+            <h2> 타이틀 </h2>
+        </div>
+        <div class = "block" onclick="location.href='../testpage/testpage.html'">
+            <a> 직업병 테스트 </a>
+        </div>
+        <div class = "block" onclick="location.href='../map/map.html'">
+            <a> 가까운 병원 </a>
+        </div>
+    </body>
+</html>
