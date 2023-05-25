@@ -1,0 +1,93 @@
+*{
+    margin:0;
+    padding:0;
+}
+.container{
+    width:900px;
+}
+ul{
+    list-style:none;
+}
+a{
+    text-decoration: none;
+    color:antiquewhite;
+}
+#intro{
+    width: 100%;
+    height: 80px;
+}
+
+#intro h1 {
+    float:left;
+    width:50%;
+    height:80px;
+    background-color: bisque;
+}
+#intro nav{
+    float:right;
+    width:50%;
+    height:80px;
+    background-color:white;
+}
+#intro nav ul li {
+    width:33.3%;
+    height:80px;
+    float:left;
+    text-align: center;
+  
+    line-height: 80px;
+}
+#intro nav ul li.zero{
+    background-color:azure;
+}
+#intro nav ul li.one{
+    background-color: blueviolet;
+}
+#intro nav ul li.two{
+    background-color:darkgray;
+}
+#intro nav ul li.three{
+    background-color:darkseagreen;
+}
+#intro nav ul li a {
+    font-size:20px;
+    font-weight:bold;
+}
+button.move{
+    border: 0;
+    outline: none;
+    font-size:30px;
+    background-color:antiquewhite;
+    color:darkgray;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    align-items: center;
+    width: 25%;
+    height:70px;
+}
+button.move:hover{
+    color:white;
+    background-color: burlywood;
+}
+
+#personal ul li {
+    font-size:20px;
+    font-weight: bold;
+    margin: 10px;
+
+}
+button.go{
+    border: 0;
+    outline: none;
+    font-size:20px;
+    background-color:aquamarine;
+    color:white;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    align-items: center;
+
+}
