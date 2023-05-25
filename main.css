@@ -1,0 +1,40 @@
+* {margin:0px; padding:0px;}
+
+a {text-decoration:none;}
+
+header{
+    height:80px;
+    background-color: aliceblue;
+    position: relative;}
+
+.menu{
+    position:absolute;
+    bottom:20px;
+    left:220px;
+    font-size:30px;
+}
+
+.menu li{
+    display: inline;
+    margin-left:200px;
+}
+
+.menu li a{color:black;}
+
+.section1 {
+    display:block;
+    padding:85px 25px;
+    color:black;
+    text-align:center;
+    font-size:30px;
+}
+
+.block{
+    display:block;
+    padding:85px 25px;
+    color:black;
+    text-align:center;
+    font-size:2em
+}
+
+.block a {color : black};
