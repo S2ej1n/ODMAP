@@ -1,10 +1,11 @@
-import { dbService } from "./fbase.js";
-
 const toggleContainer = document.getElementById("toggleContainer");
 const toggleContainer_cancelBtn = document.querySelector(
   "#toggleContainer_cancelBtn"
 );
-const toggleContainer_main = document.querySelector("#toggleContainer_main");
+const $toggleContainer_main = document.querySelector("#toggleContainer_main");
+const $search_result_list = document.querySelector("#search_result_list");
+const $searchInput = document.querySelector("#searchInput");
+const $searchButton = document.querySelector("#searchButton");
 
 const url =
   "https://api.odcloud.kr/api/3044320/v1/uddi:8c80987c-e5df-48ef-9201-aeb593696303?page=1&perPage=10&serviceKey=WdJ2KEvii666p0gJgsf5QjVSJ%2Bpx6rnEhkG5CM%2B3l3F%2BOfkB%2FqWCDwvOGls9CEtqdAw0ikGnEAyYN8pGu47LGA%3D%3D";
@@ -60,20 +61,32 @@ function createMarker(coords, hospital_notice) {
   });
 
   kakao.maps.event.addListener(marker, "click", function () {
-    openToggleContainer(coords, hospital_notice);
+    openToggleContainer(hospital_notice);
   });
 }
 
-function openToggleContainer(coords, hospital_notice) {
-  // 토글 창 내용 설정 (여기서는 좌표 정보를 표시)
-  toggleContainer_main.innerHTML = `주소:${hospital_notice.소재지}<br/>
-                                    병원명:${hospital_notice.의료기관명}<br/>
-                                    우편번호:${hospital_notice.우편번호}<br/>
-                                    연락처:${hospital_notice.연락처}`;
+function makeHospitalInfo(hospital_notice) {
+  console.log(hospital_notice)
+  $toggleContainer_main.innerHTML = `
+  <div class="name_info">
+    <h3>${hospital_notice.의료기관명}</h3>
+    <span>종합병원</span>
+  </div>
+  <div class="content_info">
+    <p>${hospital_notice.소재지}</p>
+    <p>우편번호 : ${hospital_notice.우편번호}</p>
+    <p>연락처 : ${hospital_notice.연락처}</P>
+  </div>
+  `
+}
 
+function openToggleContainer(hospital_notice) {
+  // 토글 창 내용 설정 (여기서는 좌표 정보를 표시)
+  makeHospitalInfo(hospital_notice);
   // 토글 창 열기
   toggleContainer.style.display = "block";
 }
+
 
 var mapContainer = document.getElementById("map"), // 지도를 표시할 div
   mapOption = {
@@ -89,3 +102,61 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 toggleContainer_cancelBtn.addEventListener("click", () => {
   toggleContainer.style.display = "none";
 });
+
+function makeSearchResult(find_list) {
+  const find_div = document.createElement("li");
+  find_div.className = "search_result"
+  find_div.innerText = find_list.의료기관명;
+  find_div.addEventListener("click", () => {
+    $searchInput.value = find_list.의료기관명;
+    $search_result_list.innerHTML = "";
+  })
+  $search_result_list.append(find_div);
+}
+
+function findHospital(btnClicked, searchValue) {
+  console.log(btnClicked);
+  if (!searchValue) {
+    $search_result_list.innerHTML = "";
+    return;
+  }
+  $search_result_list.innerHTML = "";
+  let find_list = []
+  let find = false
+  for (let i = 0; i < hospital_notice_list.length; i++) {
+    if (hospital_notice_list[i].의료기관명.includes(searchValue)) {
+      find_list.push(hospital_notice_list[i]);
+      find = true;
+    }
+  }
+  if (find) {
+    for (let i = 0; i < find_list.length; i++) {
+      makeSearchResult(find_list[i]);
+      find = true;
+    }
+  }
+  else {
+    const find_div = document.createElement("li");
+    find_div.className = "search_result"
+    find_div.innerText = "검색 결과가 없습니다.";
+    $search_result_list.append(find_div);
+  }
+  if (btnClicked && find) {
+    openToggleContainer(find_list[0]);
+  }
+}
+
+function onClickSearchBtn(searchValue) {
+  let btnClicked = true;
+  findHospital(btnClicked, searchValue);
+  $searchInput.value = "";
+  $search_result_list.innerHTML = "";
+}
+
+function onHandleSearchInput(searchValue) {
+  let btnClicked = false;
+  findHospital(btnClicked, searchValue);
+}
+
+$searchInput.addEventListener('input', () => onHandleSearchInput($searchInput.value));
+$searchButton.addEventListener("click", () => onClickSearchBtn($searchInput.value));
