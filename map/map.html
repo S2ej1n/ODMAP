@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>지도</title>
   <link href="css/style.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/b7ecd5e70c.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <header id="main_header">
@@ -14,20 +15,24 @@
     </a>
   </header>
   <div id="main_container">
-    <div id="toggleContainer">
-      <header id="toggleContainer_header">
-        <div id="toggleContainer_cancelBtn">❎</div>
-      </header>
+    <div id="toggleContainer" class="closed">
       <section id="toggleContainer_main">
-        
       </section>
     </div>
+    <div id="toggleContainer_toggleBtn">
+      <i class="fa-solid fa-angle-right"></i>
+    </div>
     <div id="searchContainer">
+      <button id="myLocation_btn">
+        <i class="fa-solid fa-location-crosshairs"></i>
+      </button>
       <div id="search_input_container">
         <input type="text" id="searchInput" placeholder="병원을 입력하세요">
         <ul id="search_result_list"></ul>
       </div>
-      <button id="searchButton">검색</button>
+      <button id="searchButton">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </div>
     <div id="map"></div>
   </div>

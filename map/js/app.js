@@ -1,17 +1,53 @@
-const toggleContainer = document.getElementById("toggleContainer");
-const toggleContainer_cancelBtn = document.querySelector(
-  "#toggleContainer_cancelBtn"
-);
+const mapContainer = document.getElementById("map"); // 지도를 표시할 div
+const mapOption = {
+  center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
+  level: 5, // 지도의 확대 레벨
+  mapTypeId: kakao.maps.MapTypeId.ROADMAP, // 지도종류
+};
+
+const $toggleContainer = document.querySelector("#toggleContainer");
+const $toggleContainer_toggleBtn = document.querySelector("#toggleContainer_toggleBtn");
 const $toggleContainer_main = document.querySelector("#toggleContainer_main");
+
+const $myLocation_btn = document.querySelector("#myLocation_btn");
 const $search_result_list = document.querySelector("#search_result_list");
 const $searchInput = document.querySelector("#searchInput");
 const $searchButton = document.querySelector("#searchButton");
 
 const url =
-  "https://api.odcloud.kr/api/3044320/v1/uddi:8c80987c-e5df-48ef-9201-aeb593696303?page=1&perPage=10&serviceKey=WdJ2KEvii666p0gJgsf5QjVSJ%2Bpx6rnEhkG5CM%2B3l3F%2BOfkB%2FqWCDwvOGls9CEtqdAw0ikGnEAyYN8pGu47LGA%3D%3D";
+  "https://api.odcloud.kr/api/3044320/v1/uddi:8c80987c-e5df-48ef-9201-aeb593696303?page=1&perPage=50&serviceKey=WdJ2KEvii666p0gJgsf5QjVSJ%2Bpx6rnEhkG5CM%2B3l3F%2BOfkB%2FqWCDwvOGls9CEtqdAw0ikGnEAyYN8pGu47LGA%3D%3D";
 
 let hospital_notice_list = [];
 let addresses;
+
+// 사용자의 위치 정보에 접근하여 현재 위치를 가져오는 함수
+function getCurrentLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function setNewCenter(latitude, longitude) {
+  const newCenter = new kakao.maps.LatLng(latitude, longitude);
+  mapOption.center = newCenter;
+
+  map.panTo(newCenter);
+}
+
+// 위치 정보를 성공적으로 가져왔을 때 실행되는 콜백 함수
+function successCallback(position) {
+  const latitude = position.coords.latitude; //위도
+  const longitude = position.coords.longitude; //경도
+
+  setNewCenter(latitude, longitude);
+}
+function errorCallback(error) {
+  console.log("Error occurred while retrieving location.", error);
+}
+
+// getCurrentLocation();
 
 fetch(url)
   .then((res) => res.json())
@@ -39,6 +75,7 @@ function convertAddressesToCoordinates(startIndex) {
         function (result, status) {
           if (status === kakao.maps.services.Status.OK) {
             const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            hospital_notice_list[i].좌표 = coords;
             createMarker(coords, hospital_notice_list[i]);
           }
         }
@@ -61,12 +98,11 @@ function createMarker(coords, hospital_notice) {
   });
 
   kakao.maps.event.addListener(marker, "click", function () {
-    openToggleContainer(hospital_notice);
+    makeToggleContent(hospital_notice, coords);
   });
 }
 
 function makeHospitalInfo(hospital_notice) {
-  console.log(hospital_notice)
   $toggleContainer_main.innerHTML = `
   <div class="name_info">
     <h3>${hospital_notice.의료기관명}</h3>
@@ -80,28 +116,19 @@ function makeHospitalInfo(hospital_notice) {
   `
 }
 
-function openToggleContainer(hospital_notice) {
-  // 토글 창 내용 설정 (여기서는 좌표 정보를 표시)
+function makeToggleContent(hospital_notice, coords) {
+  const latitude = coords.Ma; //위도
+  const longitude = coords.La; //경도
+  setNewCenter(latitude, longitude);
+  // // 토글 창 내용 설정 (여기서는 좌표 정보를 표시)
   makeHospitalInfo(hospital_notice);
+  openToggleContainer();
   // 토글 창 열기
-  toggleContainer.style.display = "block";
 }
-
-
-var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-  mapOption = {
-    center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
-    level: 5, // 지도의 확대 레벨
-    mapTypeId: kakao.maps.MapTypeId.ROADMAP, // 지도종류
-  };
 
 // 지도를 생성한다
 var map = new kakao.maps.Map(mapContainer, mapOption);
 // 주소-좌표 변환 객체 생성
-
-toggleContainer_cancelBtn.addEventListener("click", () => {
-  toggleContainer.style.display = "none";
-});
 
 function makeSearchResult(find_list) {
   const find_div = document.createElement("li");
@@ -121,8 +148,8 @@ function findHospital(btnClicked, searchValue) {
     return;
   }
   $search_result_list.innerHTML = "";
-  let find_list = []
-  let find = false
+  let find_list = [];
+  let find = false;
   for (let i = 0; i < hospital_notice_list.length; i++) {
     if (hospital_notice_list[i].의료기관명.includes(searchValue)) {
       find_list.push(hospital_notice_list[i]);
@@ -142,7 +169,7 @@ function findHospital(btnClicked, searchValue) {
     $search_result_list.append(find_div);
   }
   if (btnClicked && find) {
-    openToggleContainer(find_list[0]);
+    makeToggleContent(find_list[0], find_list[0].좌표);
   }
 }
 
@@ -158,5 +185,27 @@ function onHandleSearchInput(searchValue) {
   findHospital(btnClicked, searchValue);
 }
 
+function openToggleContainer() {
+  $toggleContainer.style.display = "block"
+  $toggleContainer_toggleBtn.style.left = `${$toggleContainer.clientWidth}px`;
+  $toggleContainer_toggleBtn.innerHTML = `
+  <i class="fa-solid fa-angle-left"></i>`;
+}
+
+function handleToggleContainer() {
+  if ($toggleContainer.style.display === "none") {
+    openToggleContainer();
+  }
+  else {
+    $toggleContainer.style.display = "none"
+    $toggleContainer_toggleBtn.style.left = "0";
+    $toggleContainer_toggleBtn.innerHTML = `
+    <i class="fa-solid fa-angle-right"></i>
+    `;
+  }
+}
+
 $searchInput.addEventListener('input', () => onHandleSearchInput($searchInput.value));
 $searchButton.addEventListener("click", () => onClickSearchBtn($searchInput.value));
+$myLocation_btn.addEventListener("click", getCurrentLocation);
+$toggleContainer_toggleBtn.addEventListener('click', handleToggleContainer);
