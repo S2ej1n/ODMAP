@@ -8,19 +8,19 @@
 </head>
 
 <body>
-  <div class="login-form">
-    <form>
-      <input type="text" name="id" class="text-field" placeholder="아이디">
-      <input type="password" name="password" class="text-field" placeholder="비밀번호">
-      <label for="remeber-check">
-        <input type="checkbox" id="remember-check">아이디저장하기
-      </label>
-      <input type="submit" value="로그인" class="submit-btn">
+  <div class="login_form_container">
+    <form class="login_form">
+      <input id="login_email" type="email" class="text-field" placeholder="아이디">
+      <input id="login_password" type="password" class="text-field" placeholder="비밀번호">
     </form>
+    <button id="login_btn">로그인 하기</button>
+    <div class="make_account">
+      <a onclick='location.href="../makeAccount/makeAccount.html"'>계정 만들기</a>
+    </div>
     <div class="links">
       <a href="#">비밀번호를 잊어버리셨나요?</a>
     </div>
   </div>
+  <script type="module" src="./login.js"></script>
 </body>
-
 </html>
