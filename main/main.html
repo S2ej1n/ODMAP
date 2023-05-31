@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset = "utf-8">
-        <title> 오디웹 </title>
+        <title> ODMAP - 산재병원 오디맵? </title>
         <!-- <link rel="stylesheet" href="testpage.css"> -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,23 +22,29 @@
             <nav class="navbar">
 
                 <div class="navbar__logo">
-                    <span id="nav_logo"><img src="./img/ODLOGO.png" width="150px"></span>
+                    <span id="nav_logo"><a href="#"><img src="../img/ODLOGO.png" width="150px"></a></span>
                 </div>
           
                 <ul class="navbar__menu">
-                    <li><a href="#">WHATisODM</a></li>
-                    <li><a href="#">ODTEST</a></li>
+                    <li><a href="../testpage/testpage.html">ODTEST</a></li>
                     <li><a href="#">HOSPITAL</a></li>
-                    <li><a href="#">REVIEW</a></li>
+                    <li><a href="../login/review2.html">REVIEW</a></li>
+                    <li><a href="../login/login.html">LOGIN</a></li>
                 </ul>
 
             </nav>
             
             <div class="mainBox">
                 <div class="left">
-                    <p>어쩌구 저쩌구 소개글</p>
+                    <div class="intro">
+                        <h1>WHAT IS ODMAP?</h1>
+                    <p>Occupational Disease Map 의 약자로<br>
+                        '직업병 지도'라는 의미를 담고 있습니다.<br>
+                        ODTEST를 통해 간단한 직업병 테스트를 즐길 수 있고,<br>
+                        가까운 산재 병원을 찾을 수 있는 서비스를 제공합니다.</p>
+                    </div>
                     <div>
-                        <button type="button" class = "tbut1">
+                        <button type="button" onClick="location='../testpage/testpage.html'" class = "tbut1">
                             OD TEST</button>
                     </div>
                     <div>
@@ -47,7 +53,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <img class="mainPhoto" src="./img/photo1.jpg" width="100%">
+                    <img class="mainPhoto" src="../img/photo1.jpg" width="100%">
                 </div>
                 <!-- <div class="slideshow-container">
                     <div class="PhotoBox">

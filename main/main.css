@@ -49,6 +49,10 @@ a {
     text-align: center;
 }
 
+.intro{
+    margin-bottom: 30px;
+}
+
 .left{
     width: 50%;
     margin-top: 200px;
