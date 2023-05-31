@@ -10,12 +10,10 @@ async function onClickLoginBtn() {
   let data
   try {
     data = await signAccount(authService, email, password);
-    console.log("success");
+    document.cookie = `user=${email}; path=/`
+    window.location.href = '../main/main.html';
   } catch (error) {
     console.log(error.message);
-  }
-  if (data) {
-    window.location.href = '../start/main.html'
   }
 }
 $login_btn.addEventListener("click", onClickLoginBtn);

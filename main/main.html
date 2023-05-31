@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title> 오디웹 </title>
+  <!-- <link rel="stylesheet" href="testpage.css"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Noto+Serif+KR&display=swap"
+    rel="stylesheet">
+  <!-- <script src="slide.js"></script> -->
+  <link rel="stylesheet" href="main.css">
+  <style>
+    * {
+      font-family: 'Gothic A1', sans-serif;
+      font-family: 'Noto Serif KR', serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fontBox">
+    <!-- 헤더 -->
+    <nav class="navbar">
+
+      <div class="navbar__logo">
+        <span id="nav_logo"><img src="./img/ODLOGO.png" width="150px"></span>
+      </div>
+
+      <ul class="navbar__menu">
+        <li><a href="#">WHATisODM</a></li>
+        <li><a href="#">ODTEST</a></li>
+        <li><a href="#">HOSPITAL</a></li>
+        <li><a href="#">REVIEW</a></li>
+        <li id="login_btn"><a onclick="location.href='../login/login.html'">LOGIN</a></li>
+      </ul>
+
+    </nav>
+
+    <div class="mainBox">
+      <div class="left">
+        <p>어쩌구 저쩌구 소개글</p>
+        <div>
+          <button type="button" class="tbut1">
+            OD TEST</button>
+        </div>
+        <div>
+          <button type="button" class="tbut2" onclick="location.href='../map/map.html'">
+            FIND HOSPITAL</button>
+        </div>
+      </div>
+      <div class="right">
+        <img class="mainPhoto" src="./img/photo1.jpg" width="100%">
+      </div>
+      <!-- <div class="slideshow-container">
+                    <div class="PhotoBox">
+                        <div class="mySlides fade">
+                            <img src="./img/slide1.jpg" width="100%">
+                        </div>
+                    
+                        <div class="mySlides fade">
+                            <img src="img/slide2.jpg" width="100%">
+                        </div>
+                    </div>
+                </div> -->
+    </div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
