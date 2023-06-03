@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>개인정보 입력 페이지</title>
+        <title>ODTEST</title>
         <meta charset="utf-8">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
         <nav class="navbar">
 
             <div class="navbar__logo">
-                <span id="nav_logo"><a href="#"><img src="../img/ODLOGO.png" width="150px"></a></span>
+                <span id="nav_logo"><a href="../main/main.html"><img src="../img/ODLOGO.png" width="150px"></a></span>
             </div>
       
             <ul class="navbar__menu">
@@ -30,45 +30,47 @@
             </ul>
 
         </nav>
-        <form id="personal">
-            <h1>정보 입력</h1>
-            <fieldset>
-                <legend>개인 정보</legend>
-                <ul>
-                    <li>
-                        <lable for="gender">성별</lable>
-                        <select id="gender" name="gender">
-                            <option value="">-- 선택하세요 --</option>
-                            <option value="woman">여</option>
-                            <option value="man">남</option>
-                        </select>
-                    </li>
-                    <li>
-                        <select>
-                            <option value="">-- 선택하세요 --</option>
-    
-                            <option value="1">관리직,사무직</option>
-                            <option value="2">연구직, 공학 기술직</option>
-                            <option value="3">경찰, 군인, 소방관, 스포츠직, 경호직</option>
-                            <option value="4">보건.의료직, 예술, 방송직, 종교직</option>
-                            <option value="5">운전, 운송직</option>
-                            <option value="6">건설, 정비직</option>
-                            <option value="7">농림어업직</option>
+            <div class="mainBox">
+                <div class="b_Box">
+                    <h1 style="color: #4b5baa;" id="p_title">기본 정보 입력</h1>
+                    <p>테스트를 위한 기본 정보를 입력해주세요. <br>
+                        개인정보는 테스트 이외에 사용되지 않으며,수집되거나 저장되지 않습니다.
+                    </p>
+                    <br>
+                    <hr>
+                    <br>
+                    <h3>성별</h3>
+                    <div class="gender">
+                            <select id="gender" name="gender">
+                                <option value="">-- 선택하세요 --</option>
+                                <option value="woman">여</option>
+                                <option value="man">남</option>
+                            </select>
+                    </div>
 
-                        <!-- 상세한 직업 적을 수 있는 input text 칸 -->
-                        <!-- </select> -->
-                        <!-- <input type="text" name="job" placeholder="enter job"> -->
-                    </li>
-                    <li>
-                        <label for="address">거주지</label>
-                        <input type="text" name="address" placeholder="enter address" style="width:500px">
-                     
-                    </li>
-                
-                    <button class="go" onclick="location.href='test.html'">GO테스트</button>
+                    <h3>직업군</h3>
+                    <div class="work">
+                            <select>
+                                <option value="">-- 선택하세요 --</option>
+                                <option value="1">1. 관리직,사무직</option>
+                                <option value="2">2. 연구직, 공학 기술직</option>
+                                <option value="3">3. 경찰, 군인, 소방관, 스포츠직, 경호직</option>
+                                <option value="4">4. 보건.의료, 예술, 방송직, 서비스, 종교직</option>
+                                <option value="5">5. 운전, 운송직</option>
+                                <option value="6">6. 건설, 정비직</option>
+                                <option value="7">7. 농림어업직</option>
+                            </select>
+                    </div>
                     
-                </ul>
-            </fieldset>
-        </form>
+                    <h3>거주지</h3>
+                    <div class="in_add">
+                        <input type="text" name="address" 
+                        placeholder="enter address">
+                    </div>
+                    
+                    <button class="tbut2" onclick="location.href='testpage.html'">
+                        테스트 시작</button>
+                </div>
+            </div>
     </body>
 </html>
