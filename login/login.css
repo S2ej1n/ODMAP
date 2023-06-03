@@ -1,10 +1,77 @@
+/*전체*/
+body{
+    margin: 0;
+    background-color: #d6ddff;
+}
+/*nav 헤더*/
+nav {
+    display: inline-block;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 8px 20px;
+    font-size:30px;
+    height: 60px;
+}
+
+.navbar__logo{
+    margin-top: 20px;
+}
+
+a {
+    text-decoration:none;
+    color: black;
+    font-size:20px;
+}
+
+.navbar__menu{
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+.navbar__menu li {
+    padding: 8px 30px;
+  }
+
+
+.navbar__menu li:hover {
+    transform: translateY(-4px);
+}
+
+/*화면 분할*/
+.right{
+    width: 50%;
+    margin-top: 200px;
+    float: right;
+}
+
+/*사진*/
+.left{
+    width: 50%;
+    overflow: hidden;
+    float: left;
+}
+.mainPhoto{
+    background: url(./img/slide2.jpg) no-repeat center fixed;
+    height: 100vh;
+    object-fit:cover;
+    margin: 0 auto;
+}
+
+
+/*로그인*/
 .login{
     width:410px;
-    position:absolute;
-    left:50%;
+    /* position:absolute; */
     top:50%;
-    transform:translate(-50%,-50%);
+    /* transform:translate(-50%,-50%); */
     text-align:center;
+    margin: 0 auto;
 }
 
 .login h2{
@@ -93,13 +160,31 @@ font-size: 14px;
 color: #111;
 }
 
-.login > a {
+/* .login > a {
 font-size: 14px;
 color: #666;
 border-bottom: 1px solid #666;
-}
+} */
 
 ul {
 list-style: none;
 padding-left: 0px;
+}
+
+/*로그인버튼*/
+.butLogin{
+    cursor: pointer;
+    background-color:  #8da0ff;
+    width: 420px;
+    border-radius:50px;
+    padding: 20px;
+    font-size: 20px;
+    color : #ffffff;
+    border: none;
+    transition: background-color 0.6s ease;
+}
+
+.butLogin:hover{
+    background-color: #4b5baa;
+    transform: translateY(-3px);
 }
