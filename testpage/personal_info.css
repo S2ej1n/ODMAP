@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    font-family: 'Gothic A1', sans-serif;
+    background-color: #d6ddff;
+}
+
+/*헤더*/
+nav {
+    display: inline-block;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 8px 20px;
+    font-size:30px;
+    height: 60px;
+}
+
+.navbar__logo{
+    margin-top: 20px;
+}
+
+a {
+    text-decoration:none;
+    color: black;
+    font-size:20px;
+}
+
+.navbar__menu{
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+.navbar__menu li {
+    padding: 8px 30px;
+  }
+
+
+.navbar__menu li:hover {
+    transform: translateY(-4px);
+}
