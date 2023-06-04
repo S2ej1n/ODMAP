@@ -78,7 +78,20 @@
                 <span class="dot"></span>
             </div> -->
         </div>
+        <!-- <script src="personal_info.js" charset="utf-8"></script> -->
+        <script> 
+            function startTest() {
+                var jobSelect = document.getElementById("jobSelect");
+                var selectedJob = jobSelect.value;
+        
+                // 선택한 값에 따라 파일 경로를 동적으로 설정
+                var scriptTag = document.createElement("script");
+                scriptTag.src = "data" + selectedJob + ".js";
+                scriptTag.charset = "utf-8";
+                document.body.appendChild(scriptTag);
+            }
+          </script>
         <script src="data1.js" charset="utf-8"></script>
-        <script src="./testpage.js" charset="utf-8"></script>
+        <script src="testpage_edit.js" charset="utf-8"></script>
     </body>
 </html>

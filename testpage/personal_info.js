@@ -2,30 +2,27 @@ function startTestpage() {
     var selectBox = document.getElementById("jobSelect");
     var selectedValue = selectBox.value;
 
-    /*페이지 연결하는 코드 */
-    // if (selectedValue === "1") {
-    //   window.location.href = "1.html";
-    // } else if (selectedValue === "2") {
-    //   window.location.href = "2.html";
-    // } else if (selectedValue === "3") {
-    //   window.location.href = "3.html";
-    // } else if (selectedValue === "4") {
-    //   window.location.href = "4.html";
-    // } else if (selectedValue === "5") {
-    //   window.location.href = "5.html";
-    // } else if (selectedValue === "6") {
-    //   window.location.href = "6.html";
-    // } else if (selectedValue === "7") {
-    //   window.location.href = "7.html";
-    // }
+    console.log(selectedValue)
 
-    if (selectedJob) {
-      var script = document.createElement("script");
-      script.src = "./data" + selectedJob + ".js";
-      script.charset = "utf-8";
-      document.head.appendChild(script);
-    }
-  
-    // testpage.html로 이동
-    location.href = "testpage.html";
+    // JavaScript 파일 목록
+    var jsFiles = {
+      "1": "data1.js",
+      "2": "data2.js",
+      "3": "data3.js",
+      "4": "data4.js",
+      "5": "data5.js",
+      "6": "data6.js",
+      "7": "data7.js",
+      "8": "data8.js",
+      "9": "data9.js",
+      "10": "data10.js"
+    };
+
+    // 선택한 값에 해당하는 JavaScript 파일을 가져옴
+    var selectedJsFile = jsFiles[selectedValue];
+
+    return selectedJsFile
+    // if (selectedJsFile) {
+    //   window.location.href = "test.html?jsfile=" + selectedJsFile;
+    // }
   }
