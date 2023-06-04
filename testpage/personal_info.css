@@ -1,9 +1,10 @@
-/*전체*/
-body{
+body {
     margin: 0;
+    font-family: 'Gothic A1', sans-serif;
     background-color: #d6ddff;
 }
-/*nav 헤더*/
+
+/*헤더*/
 nav {
     display: inline-block;
 }
@@ -58,49 +59,46 @@ a {
     padding-right: 40px;
 }
 
-
-/*질문 스타일*/
-.Qbox {
-    font-weight: 700;
-    padding: 40px;
+/*드롭다운 박스*/
+select {
+    width: 220px;
+    height: 30px;
+    border-radius: 10px;
 }
 
-/*버튼 스타일*/
-.tbut{
+input {
+    width: 220px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: #d6ddff;
+    padding-left: 10px;
+}
+
+.in_add{
+    margin-bottom: 20px;
+}
+
+input {
+    width: 70%;
+    height: 40px;
+}
+
+/*버튼*/
+.tbut2{
+    margin-top: 30px;
     cursor: pointer;
-    margin-bottom: 30px;
-    background-color:  #d6ddff;
-    width: 300px;
+    background-color:  #8da0ff;
+    width: 250px;
     border-radius:50px;
-    padding: 20px;
+    padding: 15px;
     font-size: 20px;
-    color : #8da0ff;
-    border-color: white;
-    border-style: solid;
+    color : #ffffff;
+    border: none;
     transition: background-color 0.6s ease;
 }
 
-.tbut:hover{
-    background-color: #ffffff;
+.tbut2:hover{
+    background-color: #4b5baa;
     transform: translateY(-3px);
-}
-
-
-.dotBox{
-    margin-top: 10px;
-}
-/*점 만들기*/
-.dot {
-    cursor: pointer; 
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbbbbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-    background-color: #ffb1b1;
 }
