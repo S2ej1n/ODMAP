@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>ODTEST</title>
+
         <link rel="stylesheet" href="testpage.css">
+        <link rel="stylesheet" href="qna.css">
+        <link rel="stylesheet" href="result.css">
+        <link rel="stylesheet" href="animation.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Noto+Serif+KR&display=swap" rel="stylesheet">
@@ -13,6 +18,7 @@
             }
         </style>
     </head>
+
     <body>
         <nav class="navbar">
 
@@ -30,25 +36,49 @@
         </nav>
         
         <div class="mainBox">
-            <div class="Qbox">
-                <h3> Q. 질문이 출력되는 칸입니다. 뚜둥</h3>
-            </div>
-            <div>
-                <button type="button" class = "tbut">
-                    1번 선택지</button>
-            </div>
-            <div>
-                <button type="button" class = "tbut">
-                    2번 선택지</button>
-            </div>
+            <div class="container">
+                <!--큐앤에이 부분-->
+                <section id="qna">
+                    <div class="status mx-auto mt-5">
+                    <div class="statusBar">
+                    </div>
+                    
+                    </div>
+                    <!--qBox라는 이름을 가지고 있는 공간 만듬.-->
+                    <!--my-5 py-3 는 마진과 패딩 설정한부분-->
+                    <div class="qBox my-5 py-3 mx-auto">
             
-            <!-- 페이지 넘기는 버튼 -->
-            <div class="dotBox" style="text-align: center;">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+                    </div>
+                    <div class="answerBox">
+            
+                    </div>
+                </section>
+            
+                <!--결과 출력 부분-->
+                <section id="result" class="mx-auto my-5 py-5 px-3">
+                    <h1>당신의 결과는...</h1>
+                    <div class="resultname">
+            
+                    </div>
+                    <div id="resultImg" class="my-3 col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
+            
+                    </div>
+                    <div class="resultDesc">
+            
+                    </div>
+                    <button type="button" class="kakao mt-3 py-2 px-3" onclick="">가까운 병원 찾기</button>
+                </section>
             </div>
+
+            <!-- 페이지 넘기는 버튼 -->
+            <!-- <div class="dotBox" style="text-align: center;">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div> -->
         </div>
+        <script src="data1.js" charset="utf-8"></script>
+        <script src="./testpage.js" charset="utf-8"></script>
     </body>
 </html>
