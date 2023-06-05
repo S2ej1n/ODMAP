@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getFirestore, addDoc, collection, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -17,3 +17,4 @@ export const authService = getAuth(firebase);
 export const dbService = getFirestore(firebase);
 export const createUser = createUserWithEmailAndPassword;
 export const signAccount = signInWithEmailAndPassword;
+export { addDoc, collection, onSnapshot, query, orderBy, deleteDoc, doc };
