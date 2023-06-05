@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <title>ODM LOGIN</title>
+        <link rel="stylesheet" href="login.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+        <style>
+            *{font-family: 'Gothic A1', sans-serif;
+            font-family: 'Noto Serif KR', serif;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar">
+
+            <div class="navbar__logo">
+                <span id="nav_logo"><a href="../main/main.html"><img src="../img/ODLOGO.png" width="150px"></a></span>
+            </div>
+      
+            <ul class="navbar__menu">
+                <li><a href="../testpage/personal_info.html">ODTEST</a></li>
+                <li><a href="../map/map.html">HOSPITAL</a></li>
+                <li><a href="../login/review2.html">REVIEW</a></li>
+                <li><a href="../login/login.html">LOGIN</a></li>
+            </ul>
+
+        </nav>
+
+        <div class="left">
+            <img class="mainPhoto" src="../img/slide2.jpg" width="100%">
+        </div>
+
+        <div class="right">
+            <div class="Box">
+                <div class = "login">
+                    <h2 style="color: #4b5baa;"> LOGIN </h2>
+                    <ul>
+                        <form id = "login">
+                            <li>
+                                <input id = "userid" type = "text" placeholder = "아이디" name = "userid"/>
+                            </li>
+                            <li>
+                                <input id = "userpw" type = "password" placeholder = "비밀번호" minlength = "10" name = "userpw"/>
+                            </li>
+                            <li>
+                                <input type = "checkbox" id = "chk_id" name = "chk_id"/> <label for = "chk_id">아이디 저장</label>
+                            </li>
+                            <li> <button class = "butLogin">로그인</button></li>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    </body>
+</html>
