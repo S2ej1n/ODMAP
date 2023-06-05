@@ -1,4 +1,4 @@
-// 8.서비스직 질문
+// 9.서비스직 질문
 
 const qnaList = [
     {
@@ -76,7 +76,7 @@ const qnaList = [
   ]
     
     
-  // 8. 서비스직 결과 리스트 
+  // 9. 서비스직 결과 리스트 
 
   const infoList = [
       {
