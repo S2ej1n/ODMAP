@@ -4,27 +4,27 @@ function startTest() {
     var selectBox = document.getElementById("jobSelect");
     var selectedValue = selectBox.value;
 
-    // JavaScript 파일 목록
-    // var jsFiles = {
-    //   "1": "data1.js",
-    //   "2": "data2.js",
-    //   "3": "data3.js",
-    //   "4": "data4.js",
-    //   "5": "data5.js",
-    //   "6": "data6.js",
-    //   "7": "data7.js",
-    //   "8": "data8.js",
-    //   "9": "data9.js",
-    //   "10": "data10.js"
-    // };
-
     if (selectedValue == ""){
       window.alert("직업군을 선택해주세요");
-    }
-    else{
-      window.location.href = 'testpage.html';
-      // 선택한 값에 해당하는 JavaScript 파일을 가져옴
-      // selectedJsFile = jsFiles[selectedValue];
-
+    } else if (selectedValue === "1") {
+      window.location.href = "testpage1.html";
+    } else if (selectedValue === "2") {
+      window.location.href = "testpage2.html";
+    } else if (selectedValue === "3") {
+      window.location.href = "testpage3.html";
+    } else if (selectedValue === "4") {
+      window.location.href = "testpage4.html";
+    } else if (selectedValue === "5") {
+      window.location.href = "testpage5.html";
+    } else if (selectedValue === "6") {
+      window.location.href = "testpage6.html";
+    } else if (selectedValue === "7") {
+      window.location.href = "testpage7.html";
+    } else if (selectedValue === "8") {
+      window.location.href = "testpage8.html";
+    } else if (selectedValue === "9") {
+      window.location.href = "testpage9.html";
+    } else if (selectedValue === "10") {
+      window.location.href = "testpage10.html";
     }
   }
