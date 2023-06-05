@@ -16,7 +16,7 @@
   
   .kakao{
     color: white;
-    background-color: #FEE500;
+    background-color: #9bcfff;
     font-size: 20px;
     border: 0px;
     border-radius: 20px;
@@ -24,6 +24,6 @@
   
   .kakao:hover, .kakao:focus {
     background-color: whitesmoke;
-    color: #FEE500;
+    color: #0b0080;
   }
   
