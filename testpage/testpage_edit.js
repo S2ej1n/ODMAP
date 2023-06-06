@@ -170,3 +170,49 @@ function goNext(qIdx){
   var status = document.querySelector('.statusBar');
   status.style.width = (100/endPoint) * (qIdx+1) + '%';
 }
+
+
+
+// 하단에 있는 동그라미 버튼에 대한 함수
+
+const circleButtons = document.querySelectorAll(".box"); // 하단의 버튼들 
+
+// 질문지 넘어가기 위한 goNext2() 함수 
+function goNext2(qIdx) {
+  if (qIdx === endPoint) {
+    goResult();
+    return;
+  }
+
+  var q = document.querySelector(".qBox");
+  q.innerHTML = qnaList[qIdx].q; 
+
+// answer 버튼들도 사라지도록 하기 ( 질문지들 넘어가기 위해 )
+  var answerButtons = document.querySelectorAll(".answerList");
+  for (let i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].disabled = false;
+    answerButtons[i].style.display = "block";
+    answerButtons[i].style.WebkitAnimation = "fadeIn 0.5s";
+    answerButtons[i].style.animation = "fadeIn 0.5s";
+  }
+// 해당하는 질문지로 bar 도 같이 이동하도록 
+  var status = document.querySelector(".statusBar");
+  status.style.width = ((100 / endPoint) * (qIdx + 1)).toFixed(1) + "%";
+}
+
+//버튼이 클릭 될 시 이벤트 리스너
+for (let i = 0; i < circleButtons.length; i++) {
+  circleButtons[i].addEventListener("click", function () {
+    var answerButtons = document.querySelectorAll(".answerList");
+
+    for (let j = 0; j < answerButtons.length; j++) {
+      answerButtons[j].disabled = true;
+      answerButtons[j].style.WebkitAnimation = "fadeOut 0.5s";
+      answerButtons[j].style.animation = "fadeOut 0.5s";
+    }
+
+    setTimeout(() => {
+      goNext2(i); // 클릭한 버튼의 인덱스를 전달해서 이동하도록 
+    }, 450);
+  });
+};
