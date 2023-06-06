@@ -63,4 +63,14 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8da0ff', endColorstr='#ff5c5c', GradientType=0);
     /* IE6-9 */
   }
+
+ /* 점 모양 진행도 css */
+  .box{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color:bisque;
+    margin-left: 10px;
+    border:none;
+  }
   
