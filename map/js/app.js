@@ -76,17 +76,6 @@ function errorCallback(error) {
   console.log("Error occurred while retrieving location.", error);
 }
 
-// getCurrentLocation();
-
-// fetch(url)
-//   .then((res) => res.json())
-//   .then((response) => {
-//     console.log(response);
-//     hospital_notice_list = response.data;
-//     convertAddressesToCoordinates(0);
-//     // Kakao Maps API 스크립트 로드 확인
-//   });
-
 // 좌표를 기반으로 마커를 생성하는 함수
 function createMarker(hospital_notice) {
   const marker = new kakao.maps.Marker({
@@ -114,7 +103,7 @@ function makeHospitalInfo(hospital_notice) {
 
   hospital_name.innerText = hospital_notice.요양기관명;
   hospital_name.addEventListener("click", () =>
-    setNewCenter(hospital_notice["좌표(Y}"], hospital_notice["좌표(X)"])
+    setNewCenter(hospital_notice["좌표(Y)"], hospital_notice["좌표(X)"])
   );
   hospital_category.innerText = hospital_notice.종별코드명;
   hospital_info.append(hospital_name);
@@ -407,6 +396,7 @@ function onHandleToggleContainer() {
 
 // 지도를 생성한다
 var map = new kakao.maps.Map(mapContainer, mapOption);
+getCurrentLocation();
 
 $searchInput.addEventListener("input", () =>
   onHandleSearchInput($searchInput.value)
