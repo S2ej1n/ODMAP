@@ -1,3 +1,7 @@
+* {
+  font-family: 'Gothic A1', sans-serif;
+}
+
 body {
   margin: 0;
   box-sizing: border-box;
@@ -15,6 +19,7 @@ nav {
   padding: 8px 20px;
   font-size:30px;
   height: 60px;
+  font-family: 'Noto Serif KR', serif;
 }
 
 .navbar__logo{
@@ -77,6 +82,7 @@ textarea {
   display: flex;
   width: 100%;
   height: calc(100vh - 50px);
+  font-family: serif;
 }
 
 #main_container #toggleContainer {
@@ -304,6 +310,32 @@ textarea {
   padding: 0 4px;
   cursor: pointer;
 }
+#toggleOption {
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+#options {
+  display: none;
+  position:absolute;
+  top: 70px;
+  left: 40%;
+  z-index: 200;
+  background-color: #fff;
+  border: 1px #504e4e solid;
+  padding: 12px;
+}
+#options span {
+  font-size: 12px;
+  font-family: 'Gothic A1', sans-serif;
+}
+
+#hospital_type_container label{
+  font-size: 10px;
+  font-family: 'Gothic A1', sans-serif;
+}
+
 
 #map {
   width: 100%;

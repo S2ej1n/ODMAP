@@ -8,11 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Noto+Serif+KR&display=swap" rel="stylesheet">
-  <style>
-    *{font-family: 'Gothic A1', sans-serif;
-    font-family: 'Noto Serif KR', serif;
-    }
-</style>
   <link href="css/style.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/b7ecd5e70c.js" crossorigin="anonymous"></script>
 </head>
@@ -39,10 +34,20 @@
         <i class="fa-solid fa-angle-right"></i>
       </div>
     </div>
+    <div id="options">
+      <span>의료기관 종류</span>
+      <div id="hospital_type_container">
+      </div>
+      <button id="optionUpdateBtn">적용</button>
+    </div>
     <div id="searchContainer">
       <button id="myLocation_btn">
         <i class="fa-solid fa-location-crosshairs"></i>
       </button>
+      <div id="searchOptionContainer">
+        <span id="toggleOption"><i class="fa-solid fa-caret-down"></i>검색옵션</span>
+        
+      </div>
       <div id="search_input_container">
         <input type="text" id="searchInput" placeholder="병원을 입력하세요">
         <ul id="search_result_list"></ul>

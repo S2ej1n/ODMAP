@@ -16,12 +16,32 @@ const mapOption = {
   mapTypeId: kakao.maps.MapTypeId.ROADMAP, // 지도종류
 };
 
+const filterOptions = [];
+const options = [
+  { id: "option1", value: "상급종합" },
+  { id: "option2", value: "종합병원" },
+  { id: "option3", value: "병원" },
+  { id: "option4", value: "요양병원" },
+  { id: "option5", value: "의원" },
+  { id: "option6", value: "치과병원" },
+  { id: "option7", value: "치과의원" },
+  { id: "option8", value: "보건의료원" },
+  { id: "option9", value: "정신병원" },
+  { id: "option10", value: "한방병원" },
+  { id: "option11", value: "한의원" },
+];
+const $hospital_type_container = document.querySelector(
+  "#hospital_type_container"
+);
+const $toggle_option_btn = document.querySelector("#toggleOption");
+const $options = document.querySelector("#options");
+const $option_update_btn = document.querySelector("#optionUpdateBtn");
+
 const $toggleContainer = document.querySelector("#toggleContainer");
 const $toggleContainer_toggleBtn = document.querySelector(
   "#toggleContainer_toggleBtn"
 );
 const $toggleContainer_main = document.querySelector("#toggleContainer_main");
-
 const $myLocation_btn = document.querySelector("#myLocation_btn");
 const $search_result_list = document.querySelector("#search_result_list");
 const $searchInput = document.querySelector("#searchInput");
@@ -29,8 +49,9 @@ const $searchButton = document.querySelector("#searchButton");
 
 // const url ="https://api.odcloud.kr/api/3044320/v1/uddi:8c80987c-e5df-48ef-9201-aeb593696303?page=1&perPage=50&serviceKey=WdJ2KEvii666p0gJgsf5QjVSJ%2Bpx6rnEhkG5CM%2B3l3F%2BOfkB%2FqWCDwvOGls9CEtqdAw0ikGnEAyYN8pGu47LGA%3D%3D";
 
-let hospital_notice_list = []; // 병원 정보 전체 리스트
-let find_list = []; // 검색 결과에 대한 리스트
+const hospital_notice_list = []; // 병원 정보 전체 배열
+const find_list = []; // 검색 결과에 대한 배열
+const markers = []; // 마커를 담을 배열
 
 fetch("./myArray.json")
   .then((response) => response.json())
@@ -42,6 +63,7 @@ fetch("./myArray.json")
       hospital_notice_list.push(hospital_notice);
 
       const marker = createMarker(hospital_notice);
+      markers.push(marker);
     }
   })
   .catch((error) => {
@@ -61,7 +83,7 @@ function getCurrentLocation() {
 function setNewCenter(latitude, longitude) {
   const newCenter = new kakao.maps.LatLng(latitude, longitude);
   mapOption.center = newCenter;
-
+  map.setLevel(3);
   map.panTo(newCenter);
 }
 
@@ -83,6 +105,7 @@ function createMarker(hospital_notice) {
       hospital_notice["좌표(Y)"],
       hospital_notice["좌표(X)"]
     ),
+    title: hospital_notice.요양기관명,
     map: map,
   });
 
@@ -316,7 +339,7 @@ function makeSearchResult() {
       $search_result_list.innerHTML = "";
       const tmp = [];
       tmp.push(find_list[i]);
-      find_list = [];
+      find_list.length = 0;
       find_list.push(tmp[0]);
     });
     $search_result_list.append(find_div);
@@ -331,7 +354,7 @@ function findHospital(btnClicked, searchValue) {
       makeHospitalInfo(find_list[i]);
     }
     openToggleContainer();
-    find_list = [];
+    find_list.length = 0;
     return;
   }
   if (!searchValue) {
@@ -339,7 +362,7 @@ function findHospital(btnClicked, searchValue) {
     return;
   }
   $search_result_list.innerHTML = "";
-  find_list = [];
+  find_list.length = 0;
   let find = false;
   for (let i = 0; i < hospital_notice_list.length; i++) {
     if (hospital_notice_list[i].요양기관명.includes(searchValue)) {
@@ -393,11 +416,82 @@ function onHandleToggleContainer() {
     closeToggleContainer();
   }
 }
+function openOptionToggleContainer() {
+  $options.style.display = "block";
+  $toggle_option_btn.innerHTML = `
+  <i class="fa-solid fa-caret-up"></i>검색옵션
+  `;
+}
+function closeOptionToggleContainer() {
+  $options.style.display = "none";
+  $toggle_option_btn.innerHTML = `
+  <i class="fa-solid fa-caret-down"></i>검색옵션
+  `;
+}
+
+function onHandleToggleOptionBtn() {
+  if ($options.style.display === "none") {
+    openOptionToggleContainer();
+  } else {
+    closeOptionToggleContainer();
+  }
+}
+
+for (let i = 0; i < options.length; i++) {
+  createTypeOptions(options[i]);
+}
+
+function createTypeOptions(option) {
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = option.id;
+  checkbox.value = option.value;
+
+  const label = document.createElement("label");
+  label.htmlFor = option.id;
+  label.textContent = option.value;
+
+  const br = document.createElement("br");
+
+  $hospital_type_container.appendChild(checkbox);
+  $hospital_type_container.appendChild(label);
+  $hospital_type_container.appendChild(br);
+}
+
+function onHandleOptionUpdateBtn() {
+  markers.forEach((marker) => marker.setMap(null));
+  markers.length = 0;
+
+  hospital_notice_list.forEach((hospitalInfo) => {
+    if (filterOptions.includes(hospitalInfo.종별코드명)) {
+      const marker = createMarker(hospitalInfo);
+      markers.push(marker);
+    }
+  });
+  closeOptionToggleContainer();
+}
 
 // 지도를 생성한다
 var map = new kakao.maps.Map(mapContainer, mapOption);
+
 getCurrentLocation();
 
+$hospital_type_container.addEventListener("change", function (event) {
+  const checkbox = event.target;
+  const value = checkbox.value;
+
+  if (checkbox.checked) {
+    filterOptions.push(value);
+  } else {
+    const index = filterOptions.indexOf(value);
+    if (index > -1) {
+      filterOptions.splice(index, 1);
+    }
+  }
+});
+
+$toggle_option_btn.addEventListener("click", onHandleToggleOptionBtn);
+$option_update_btn.addEventListener("click", onHandleOptionUpdateBtn);
 $searchInput.addEventListener("input", () =>
   onHandleSearchInput($searchInput.value)
 );
