@@ -1,4 +1,13 @@
-import { addDoc, collection, dbService, onSnapshot, query, orderBy, deleteDoc, doc } from '../../fbase.js';
+import {
+  addDoc,
+  collection,
+  dbService,
+  onSnapshot,
+  query,
+  orderBy,
+  deleteDoc,
+  doc,
+} from "../../fbase.js";
 
 const mapContainer = document.getElementById("map"); // 지도를 표시할 div
 const mapOption = {
@@ -8,7 +17,9 @@ const mapOption = {
 };
 
 const $toggleContainer = document.querySelector("#toggleContainer");
-const $toggleContainer_toggleBtn = document.querySelector("#toggleContainer_toggleBtn");
+const $toggleContainer_toggleBtn = document.querySelector(
+  "#toggleContainer_toggleBtn"
+);
 const $toggleContainer_main = document.querySelector("#toggleContainer_main");
 
 const $myLocation_btn = document.querySelector("#myLocation_btn");
@@ -16,11 +27,27 @@ const $search_result_list = document.querySelector("#search_result_list");
 const $searchInput = document.querySelector("#searchInput");
 const $searchButton = document.querySelector("#searchButton");
 
-const url =
-  "https://api.odcloud.kr/api/3044320/v1/uddi:8c80987c-e5df-48ef-9201-aeb593696303?page=1&perPage=50&serviceKey=WdJ2KEvii666p0gJgsf5QjVSJ%2Bpx6rnEhkG5CM%2B3l3F%2BOfkB%2FqWCDwvOGls9CEtqdAw0ikGnEAyYN8pGu47LGA%3D%3D";
+// const url ="https://api.odcloud.kr/api/3044320/v1/uddi:8c80987c-e5df-48ef-9201-aeb593696303?page=1&perPage=50&serviceKey=WdJ2KEvii666p0gJgsf5QjVSJ%2Bpx6rnEhkG5CM%2B3l3F%2BOfkB%2FqWCDwvOGls9CEtqdAw0ikGnEAyYN8pGu47LGA%3D%3D";
 
-let hospital_notice_list = [];
+let hospital_notice_list = []; // 병원 정보 전체 리스트
 let find_list = []; // 검색 결과에 대한 리스트
+
+fetch("./myArray.json")
+  .then((response) => response.json())
+  .then((data) => {
+    // 데이터를 성공적으로 받아온 경우 처리할 로직을 여기에 작성합니다.
+    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+      const hospital_notice = data[i];
+      hospital_notice_list.push(hospital_notice);
+
+      const marker = createMarker(hospital_notice);
+    }
+  })
+  .catch((error) => {
+    // 오류 처리
+    console.error("파일 가져오기 오류:", error);
+  });
 
 // 사용자의 위치 정보에 접근하여 현재 위치를 가져오는 함수
 function getCurrentLocation() {
@@ -51,56 +78,30 @@ function errorCallback(error) {
 
 // getCurrentLocation();
 
-fetch(url)
-  .then((res) => res.json())
-  .then((response) => {
-    console.log(response);
-    hospital_notice_list = response.data;
-    convertAddressesToCoordinates(0);
-    // Kakao Maps API 스크립트 로드 확인
-  });
+// fetch(url)
+//   .then((res) => res.json())
+//   .then((response) => {
+//     console.log(response);
+//     hospital_notice_list = response.data;
+//     convertAddressesToCoordinates(0);
+//     // Kakao Maps API 스크립트 로드 확인
+//   });
 
-// 주소를 좌표로 변환하는 함수
-function convertAddressesToCoordinates(startIndex) {
-  const geocoder = new kakao.maps.services.Geocoder();
-  const batchSize = 1000;
-  const endIndex = Math.min(
-    startIndex + batchSize,
-    hospital_notice_list.length
-  );
-
-  for (let i = startIndex; i < endIndex; i++) {
-    setTimeout(() => {
-      geocoder.addressSearch(
-        hospital_notice_list[i].소재지,
-        function (result, status) {
-          if (status === kakao.maps.services.Status.OK) {
-            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            hospital_notice_list[i].좌표 = coords;
-            createMarker(coords, hospital_notice_list[i]);
-          }
-        }
-      );
-    }, i * 100); // 100ms 간격으로 호출
-  }
-
-  if (endIndex < hospital_notice_list.length) {
-    // 변환할 주소가 남아있으면 다음 일부분 변환 호출 예약
-    setTimeout(() => {
-      convertAddressesToCoordinates(endIndex);
-    }, endIndex * 100);
-  }
-}
 // 좌표를 기반으로 마커를 생성하는 함수
-function createMarker(coords, hospital_notice) {
+function createMarker(hospital_notice) {
   const marker = new kakao.maps.Marker({
-    position: coords,
+    position: new kakao.maps.LatLng(
+      hospital_notice["좌표(Y)"],
+      hospital_notice["좌표(X)"]
+    ),
     map: map,
   });
 
   kakao.maps.event.addListener(marker, "click", function () {
-    makeToggleContent(hospital_notice, coords);
+    makeToggleContent(hospital_notice);
   });
+
+  return marker;
 }
 
 function makeHospitalInfo(hospital_notice) {
@@ -111,9 +112,11 @@ function makeHospitalInfo(hospital_notice) {
   const hospital_name = document.createElement("h3");
   const hospital_category = document.createElement("span");
 
-  hospital_name.innerText = hospital_notice.의료기관명;
-  hospital_name.addEventListener("click", () => setNewCenter(hospital_notice.좌표.Ma, hospital_notice.좌표.La))
-  hospital_category.innerText = "종합병원";
+  hospital_name.innerText = hospital_notice.요양기관명;
+  hospital_name.addEventListener("click", () =>
+    setNewCenter(hospital_notice["좌표(Y}"], hospital_notice["좌표(X)"])
+  );
+  hospital_category.innerText = hospital_notice.종별코드명;
   hospital_info.append(hospital_name);
   hospital_info.append(hospital_category);
 
@@ -123,9 +126,9 @@ function makeHospitalInfo(hospital_notice) {
   const hospital_postalcode = document.createElement("p");
   const hospital_contactnum = document.createElement("P");
 
-  hospital_address.innerText = hospital_notice.소재지;
+  hospital_address.innerText = hospital_notice.주소;
   hospital_postalcode.innerText = "우편번호 : " + hospital_notice.우편번호;
-  hospital_contactnum.innerText = "연락처 : " + hospital_notice.연락처;
+  hospital_contactnum.innerText = "연락처 : " + hospital_notice.전화번호;
   hospital_info_detail.append(hospital_address);
   hospital_info_detail.append(hospital_postalcode);
   hospital_info_detail.append(hospital_contactnum);
@@ -149,12 +152,14 @@ function makeHospitalInfo(hospital_notice) {
 async function onAddReview(hospital_notice) {
   const $review_context_area = document.querySelector("#review_context_area");
   console.log($review_context_area.value);
-  const docRef = await addDoc(collection(dbService, hospital_notice.의료기관명), {
-    context: $review_context_area.value,
-    createdAt: Date.now(),
-  });
+  const docRef = await addDoc(
+    collection(dbService, hospital_notice.요양기관명),
+    {
+      context: $review_context_area.value,
+      createdAt: Date.now(),
+    }
+  );
   console.log(docRef);
-
 }
 
 function closeReviewFormContainer() {
@@ -166,8 +171,7 @@ function onClickReviewAddBtn(hospital_notice) {
   const $review_context_area = document.querySelector("#review_context_area");
   if (!$review_context_area) {
     return;
-  }
-  else {
+  } else {
     onAddReview(hospital_notice);
     closeReviewFormContainer();
   }
@@ -180,26 +184,29 @@ function makeReviewForm(hospital_notice) {
     <h3>리뷰 작성</h3>
     <textarea id="review_context_area" column="3"></textarea>
     <button id="review_add_btn">리뷰 등록</button>
-  `
-  $toggleContainer_main.insertBefore(reviewForm_container, $toggleContainer_main.children[2]);
-  document.querySelector("#review_add_btn").addEventListener("click", () => onClickReviewAddBtn(hospital_notice));
+  `;
+  $toggleContainer_main.insertBefore(
+    reviewForm_container,
+    $toggleContainer_main.children[2]
+  );
+  document
+    .querySelector("#review_add_btn")
+    .addEventListener("click", () => onClickReviewAddBtn(hospital_notice));
 }
 
 function onHandleWriteReviewBtn(write_review, hospital_notice) {
   if (write_review.innerText === "리뷰 쓰기") {
     write_review.innerText = "작성취소";
     makeReviewForm(hospital_notice);
-  }
-  else {
+  } else {
     write_review.innerText = "리뷰 쓰기";
     closeReviewFormContainer();
   }
-
 }
 
 function makeReviewContainer(hospital_notice) {
   const review_container = document.createElement("div");
-  review_container.setAttribute('class', 'review_container');
+  review_container.setAttribute("class", "review_container");
   const rate_info = document.createElement("div");
   rate_info.setAttribute("class", "rate_info");
   const total_rate_num = document.createElement("span");
@@ -209,27 +216,31 @@ function makeReviewContainer(hospital_notice) {
   total_rate_star.innerText = "★ ★ ★ ★ ★";
   write_review.innerText = "리뷰 쓰기";
   write_review.addEventListener("click", () =>
-    onHandleWriteReviewBtn(write_review, hospital_notice));
+    onHandleWriteReviewBtn(write_review, hospital_notice)
+  );
   rate_info.append(total_rate_num);
   rate_info.append(total_rate_star);
   review_container.append(rate_info);
   review_container.append(write_review);
   $toggleContainer_main.append(review_container);
-
 }
 
 function getReviewFromFirestore(hospital_name) {
   return new Promise((resolve, reject) => {
     const q = query(collection(dbService, hospital_name), orderBy("createdAt"));
-    onSnapshot(q, (snapshot) => {
-      const reviewsArr = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      resolve(reviewsArr);
-    }, (error) => {
-      reject(error);
-    });
+    onSnapshot(
+      q,
+      (snapshot) => {
+        const reviewsArr = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        resolve(reviewsArr);
+      },
+      (error) => {
+        reject(error);
+      }
+    );
   });
 }
 
@@ -239,8 +250,7 @@ async function onClickReviewDeleteBtn(reviewArr, hospital_name) {
   if (ok) {
     const reviewRef = doc(dbService, hospital_name, reviewArr.id);
     await deleteDoc(reviewRef);
-  }
-  else {
+  } else {
     return;
   }
 }
@@ -264,72 +274,70 @@ function makeReview(review_list_container, reviewsArr, hospital_name) {
       review_update_btn.innerText = "수정";
       review_delete_btn.innerText = "삭제";
       review_update_btn.addEventListener("click", onClickReviewUpdateBtn);
-      review_delete_btn.addEventListener("click", () => onClickReviewDeleteBtn(reviewsArr[i], hospital_name));
+      review_delete_btn.addEventListener("click", () =>
+        onClickReviewDeleteBtn(reviewsArr[i], hospital_name)
+      );
       review_tool_btns.append(review_update_btn);
       review_tool_btns.append(review_delete_btn);
       review_container.append(review_tool_btns);
       review_list_container.append(review_container);
     }
-  }
-  else {
+  } else {
     const noReview = document.createElement("div");
     noReview.setAttribute("class", "noReview");
     noReview.innerText = "해당 병원의 리뷰가 없습니다.";
     review_list_container.append(noReview);
   }
-
 }
 function makeReviewList(hospital_name) {
   const review_list_container = document.createElement("div");
   review_list_container.setAttribute("class", "review_list_container");
 
-  getReviewFromFirestore(hospital_name).then((reviewsArr) => {
-    makeReview(review_list_container, reviewsArr, hospital_name);
-  }).catch((error) => {
-    console.log(error);
-  })
+  getReviewFromFirestore(hospital_name)
+    .then((reviewsArr) => {
+      makeReview(review_list_container, reviewsArr, hospital_name);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   $toggleContainer_main.append(review_list_container);
 }
 
-function makeToggleContent(hospital_notice, coords) {
-  const latitude = coords.Ma; //위도
-  const longitude = coords.La; //경도
+function makeToggleContent(hospital_notice) {
+  const latitude = hospital_notice["좌표(Y)"]; //위도
+  const longitude = hospital_notice["좌표(X)"]; //경도
   setNewCenter(latitude, longitude);
 
   $toggleContainer_main.innerHTML = "";
   // 토글 창 내용 설정
   makeHospitalInfo(hospital_notice);
   makeReviewContainer(hospital_notice);
-  makeReviewList(hospital_notice.의료기관명);
+  makeReviewList(hospital_notice.요양기관명);
   openToggleContainer();
   // 토글 창 열기
 }
 
-// 지도를 생성한다
-var map = new kakao.maps.Map(mapContainer, mapOption);
-// 주소-좌표 변환 객체 생성
-
 function makeSearchResult() {
   for (let i = 0; i < find_list.length; i++) {
     const find_div = document.createElement("li");
-    find_div.className = "search_result"
-    find_div.innerText = find_list[i].의료기관명;
+    find_div.className = "search_result";
+    find_div.innerText = find_list[i].요양기관명;
     find_div.addEventListener("click", () => {
-      $searchInput.value = find_list[i].의료기관명;
+      $searchInput.value = find_list[i].요양기관명;
       $search_result_list.innerHTML = "";
       const tmp = [];
       tmp.push(find_list[i]);
       find_list = [];
       find_list.push(tmp[0]);
-    })
+    });
     $search_result_list.append(find_div);
   }
-
 }
 
 function findHospital(btnClicked, searchValue) {
+  // 찾는 병원이 있고 검색 버튼을 클릭 했을 때
   if (btnClicked && find_list) {
-    $toggleContainer_main.innerHTML = '';
+    $toggleContainer_main.innerHTML = "";
     for (let i = 0; i < find_list.length; i++) {
       makeHospitalInfo(find_list[i]);
     }
@@ -345,7 +353,7 @@ function findHospital(btnClicked, searchValue) {
   find_list = [];
   let find = false;
   for (let i = 0; i < hospital_notice_list.length; i++) {
-    if (hospital_notice_list[i].의료기관명.includes(searchValue)) {
+    if (hospital_notice_list[i].요양기관명.includes(searchValue)) {
       find_list.push(hospital_notice_list[i]);
       find = true;
     }
@@ -353,10 +361,9 @@ function findHospital(btnClicked, searchValue) {
   if (find) {
     makeSearchResult();
     find = true;
-  }
-  else {
+  } else {
     const find_div = document.createElement("li");
-    find_div.className = "search_result"
+    find_div.className = "search_result";
     find_div.innerText = "검색 결과가 없습니다.";
     $search_result_list.append(find_div);
   }
@@ -375,26 +382,37 @@ function onHandleSearchInput(searchValue) {
 }
 
 function openToggleContainer() {
-  $toggleContainer_main.style.display = "block"
-  $toggleContainer_toggleBtn.style.left = `${$toggleContainer.clientWidth - 1}px`;
+  $toggleContainer_main.style.display = "block";
+  $toggleContainer_toggleBtn.style.left = `${
+    $toggleContainer.clientWidth - 1
+  }px`;
   $toggleContainer_toggleBtn.innerHTML = `
   <i class="fa-solid fa-angle-left"></i>`;
 }
+function closeToggleContainer() {
+  $toggleContainer_main.style.display = "none";
+  $toggleContainer_toggleBtn.style.left = "0";
+  $toggleContainer_toggleBtn.innerHTML = `
+  <i class="fa-solid fa-angle-right"></i>
+  `;
+}
 
-function handleToggleContainer() {
+function onHandleToggleContainer() {
   if ($toggleContainer_main.style.display === "none") {
     openToggleContainer();
-  }
-  else {
-    $toggleContainer_main.style.display = "none"
-    $toggleContainer_toggleBtn.style.left = "0";
-    $toggleContainer_toggleBtn.innerHTML = `
-    <i class="fa-solid fa-angle-right"></i>
-    `;
+  } else {
+    closeToggleContainer();
   }
 }
 
-$searchInput.addEventListener('input', () => onHandleSearchInput($searchInput.value));
-$searchButton.addEventListener("click", () => onClickSearchBtn($searchInput.value));
+// 지도를 생성한다
+var map = new kakao.maps.Map(mapContainer, mapOption);
+
+$searchInput.addEventListener("input", () =>
+  onHandleSearchInput($searchInput.value)
+);
+$searchButton.addEventListener("click", () =>
+  onClickSearchBtn($searchInput.value)
+);
 $myLocation_btn.addEventListener("click", getCurrentLocation);
-$toggleContainer_toggleBtn.addEventListener('click', handleToggleContainer);
+$toggleContainer_toggleBtn.addEventListener("click", onHandleToggleContainer);
