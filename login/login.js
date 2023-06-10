@@ -1,10 +1,11 @@
 import { authService, signAccount } from '../fbase.js';
 
-const $login_email = document.querySelector("#login_email");
-const $login_password = document.querySelector("#login_password");
-const $login_btn = document.querySelector("#login_btn");
+const $login_email = document.querySelector("#userid");
+const $login_password = document.querySelector("#userpw");
+const $login_btn = document.querySelector(".butLogin");
 
-async function onClickLoginBtn() {
+async function onClickLoginBtn(event) {
+  event.preventDefault();
   const email = $login_email.value;
   const password = $login_password.value;
   let data
