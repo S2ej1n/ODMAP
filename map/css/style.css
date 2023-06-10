@@ -90,7 +90,6 @@ textarea {
 }
 
 #main_container #toggleContainer #toggleContainer_main {
-  display: none;
   width: 320px;
   height: 100%;
   box-shadow: 5px 5px 15px 2px rgba(0,0,0,0.2);
@@ -121,37 +120,46 @@ textarea {
   background-color: #eff7ff;
 }
 
-#main_container #toggleContainer #toggleContainer_main .hospital_info {
+.hospital_info {
   display: flex;
   align-items: center;
   font-size: 12px;
   margin-bottom: 4px;
 }
 
-#main_container #toggleContainer #toggleContainer_main .hospital_info h3 {
+.hospital_info h3 {
   font-size: 16px;
   margin: 0;
   margin-right: 8px;
   max-width: 190px;
 }
+
 #main_container #toggleContainer #toggleContainer_main .hospital_info h3:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-#main_container #toggleContainer #toggleContainer_main .hospital_info span {
+.hospital_info span {
   font-size: 12px;
   color: #888;
 }
 
-
-#main_container #toggleContainer #toggleContainer_main .hospital_info_detail {
+.hospital_info_detail {
   font-size: 12px;
   letter-spacing: -1px;
 }
 
-#main_container #toggleContainer #toggleContainer_main .hospital_info_detail p {
+.hospital_info_detail p {
   margin-bottom: 4px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info_detail a {
+  font-size: 14px;
+  color: #504e4e;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info_detail a:hover {
+  text-decoration: underline;
 }
 
 #main_container #toggleContainer #toggleContainer_main .review_container {
@@ -317,7 +325,6 @@ textarea {
 }
 
 #options {
-  display: none;
   position:absolute;
   top: 70px;
   left: 40%;
@@ -336,8 +343,20 @@ textarea {
   font-family: 'Gothic A1', sans-serif;
 }
 
-
 #map {
   width: 100%;
   height: 100%;
+}
+
+.customoverlay {
+  background-color: white;
+  border: 1px solid #504e4e;
+  padding: 8px;
+  max-width: 255px;
+}
+
+.customoverlay .hospital_info_detail p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

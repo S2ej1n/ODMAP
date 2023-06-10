@@ -16,6 +16,13 @@ const mapOption = {
   mapTypeId: kakao.maps.MapTypeId.ROADMAP, // 지도종류
 };
 
+const map = new kakao.maps.Map(mapContainer, mapOption);
+const clusterer = new kakao.maps.MarkerClusterer({
+  map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+  averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+  minLevel: 5, // 클러스터 할 최소 지도 레벨
+});
+
 const filterOptions = [];
 const options = [
   { id: "option1", value: "상급종합" },
@@ -52,6 +59,7 @@ const $searchButton = document.querySelector("#searchButton");
 const hospital_notice_list = []; // 병원 정보 전체 배열
 const find_list = []; // 검색 결과에 대한 배열
 const markers = []; // 마커를 담을 배열
+const customOverlays = [];
 
 fetch("./myArray.json")
   .then((response) => response.json())
@@ -63,8 +71,11 @@ fetch("./myArray.json")
       hospital_notice_list.push(hospital_notice);
 
       const marker = createMarker(hospital_notice);
+      // const customOverlay = createCustomOverlay(hospital_notice);
       markers.push(marker);
+      // customOverlays.push(customOverlay);
     }
+    clusterer.addMarkers(markers);
   })
   .catch((error) => {
     // 오류 처리
@@ -98,6 +109,37 @@ function errorCallback(error) {
   console.log("Error occurred while retrieving location.", error);
 }
 
+function createCustomOverlay(hospital_notice) {
+  const content = `
+    <div class="customoverlay">
+      <div class="hospital_info">
+        <h3>${hospital_notice.요양기관명}</h3>
+        <span>${hospital_notice.종별코드명}</span>
+      </div>
+      <div class="hospital_info_detail">
+        <p>${hospital_notice.주소}</p>
+        <p>${hospital_notice.진료과목코드명}</p>
+      </div>
+    </div>
+  `;
+
+  // 커스텀 오버레이가 표시될 위치입니다
+  const position = new kakao.maps.LatLng(
+    hospital_notice["좌표(Y)"],
+    hospital_notice["좌표(X)"]
+  );
+
+  // 커스텀 오버레이를 생성합니다
+  const customOverlay = new kakao.maps.CustomOverlay({
+    map: map,
+    position: position,
+    content: content,
+    yAnchor: 2,
+  });
+
+  return customOverlay;
+}
+
 // 좌표를 기반으로 마커를 생성하는 함수
 function createMarker(hospital_notice) {
   const marker = new kakao.maps.Marker({
@@ -106,13 +148,18 @@ function createMarker(hospital_notice) {
       hospital_notice["좌표(X)"]
     ),
     title: hospital_notice.요양기관명,
-    map: map,
+    // map: map,
   });
-
+  let customOverlay;
   kakao.maps.event.addListener(marker, "click", function () {
     makeToggleContent(hospital_notice);
   });
-
+  kakao.maps.event.addListener(marker, "mouseover", function () {
+    customOverlay = createCustomOverlay(hospital_notice);
+  });
+  kakao.maps.event.addListener(marker, "mouseout", function () {
+    customOverlay.setMap(null);
+  });
   return marker;
 }
 
@@ -137,13 +184,18 @@ function makeHospitalInfo(hospital_notice) {
   const hospital_address = document.createElement("p");
   const hospital_postalcode = document.createElement("p");
   const hospital_contactnum = document.createElement("P");
+  const hospital_homepage = document.createElement("a");
 
   hospital_address.innerText = hospital_notice.주소;
   hospital_postalcode.innerText = "우편번호 : " + hospital_notice.우편번호;
   hospital_contactnum.innerText = "연락처 : " + hospital_notice.전화번호;
+  hospital_homepage.innerText = hospital_notice.병원홈페이지;
+  hospital_homepage.target = "_blank";
+  hospital_homepage.href = hospital_notice.병원홈페이지;
   hospital_info_detail.append(hospital_address);
   hospital_info_detail.append(hospital_postalcode);
   hospital_info_detail.append(hospital_contactnum);
+  hospital_info_detail.append(hospital_homepage);
 
   hospital_info_container.append(hospital_info);
   hospital_info_container.append(hospital_info_detail);
@@ -430,9 +482,12 @@ function closeOptionToggleContainer() {
 }
 
 function onHandleToggleOptionBtn() {
+  console.log("clicked");
   if ($options.style.display === "none") {
+    console.log("none");
     openOptionToggleContainer();
   } else {
+    console.log("block");
     closeOptionToggleContainer();
   }
 }
@@ -472,7 +527,6 @@ function onHandleOptionUpdateBtn() {
 }
 
 // 지도를 생성한다
-var map = new kakao.maps.Map(mapContainer, mapOption);
 
 getCurrentLocation();
 
