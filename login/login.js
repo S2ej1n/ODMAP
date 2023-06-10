@@ -1,4 +1,4 @@
-import { authService, signInWithEmailAndPassword } from '../fbase.js';
+import { authService, signInWithEmailAndPassword } from "../fbase.js";
 
 const $login_email = document.querySelector("#userid");
 const $login_password = document.querySelector("#userpw");
@@ -8,11 +8,10 @@ async function onClickLoginBtn(event) {
   event.preventDefault();
   const email = $login_email.value;
   const password = $login_password.value;
-  let data
+  let data;
   try {
     data = await signInWithEmailAndPassword(authService, email, password);
-    document.cookie = `user=${email}; path=/`
-    window.location.href = '../main/main.html';
+    history.back();
   } catch (error) {
     console.log(error.message);
   }
