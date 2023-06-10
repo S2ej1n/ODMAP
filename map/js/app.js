@@ -8,6 +8,7 @@ import {
   deleteDoc,
   doc,
 } from "../../fbase.js";
+import { userId } from '../../main.js';
 
 const mapContainer = document.getElementById("map"); // 지도를 표시할 div
 const mapOption = {
@@ -220,10 +221,10 @@ async function onAddReview(hospital_notice) {
     collection(dbService, hospital_notice.요양기관명),
     {
       context: $review_context_area.value,
+      creatorId: userId,
       createdAt: Date.now(),
     }
   );
-  console.log(docRef);
 }
 
 function closeReviewFormContainer() {
@@ -275,17 +276,21 @@ function makeReviewContainer(hospital_notice) {
   rate_info.setAttribute("class", "rate_info");
   const total_rate_num = document.createElement("span");
   const total_rate_star = document.createElement("div");
-  const write_review = document.createElement("span");
+
+  // write_review.setAttribute("id", "toggleWriteReviewBtn");
   total_rate_num.innerText = "4.0";
   total_rate_star.innerText = "★ ★ ★ ★ ★";
-  write_review.innerText = "리뷰 쓰기";
-  write_review.addEventListener("click", () =>
-    onHandleWriteReviewBtn(write_review, hospital_notice)
-  );
   rate_info.append(total_rate_num);
   rate_info.append(total_rate_star);
+  if (userId) {
+    const write_review = document.createElement("span");
+    write_review.innerText = "리뷰 쓰기";
+    write_review.addEventListener("click", () =>
+      onHandleWriteReviewBtn(write_review, hospital_notice)
+    );
+    review_container.append(write_review);
+  }
   review_container.append(rate_info);
-  review_container.append(write_review);
   $toggleContainer_main.append(review_container);
 }
 
@@ -447,9 +452,8 @@ function onHandleSearchInput(searchValue) {
 
 function openToggleContainer() {
   $toggleContainer_main.style.display = "block";
-  $toggleContainer_toggleBtn.style.left = `${
-    $toggleContainer.clientWidth - 1
-  }px`;
+  $toggleContainer_toggleBtn.style.left = `${$toggleContainer.clientWidth - 1
+    }px`;
   $toggleContainer_toggleBtn.innerHTML = `
   <i class="fa-solid fa-angle-left"></i>`;
 }

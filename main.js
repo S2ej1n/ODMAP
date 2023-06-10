@@ -3,6 +3,8 @@ import { authService } from './fbase.js';
 const $login_btn = document.querySelector('#login_btn');
 const $logout_btn = document.querySelector('#logout_btn');
 
+export let userId;
+
 function onHandleLogoutBtn() {
   authService.signOut().then(() => {
 
@@ -14,6 +16,7 @@ function onHandleLogoutBtn() {
 authService.onAuthStateChanged((user) => {
   if (user) {
     console.log(user);
+    userId = user.uid;
     $logout_btn.style.display = 'block';
     $login_btn.style.display = "none";
   }
