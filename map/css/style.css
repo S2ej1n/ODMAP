@@ -327,7 +327,7 @@ textarea {
 #options {
   position:absolute;
   top: 70px;
-  left: 40%;
+  left: 37%;
   z-index: 200;
   background-color: #fff;
   border: 1px #504e4e solid;
@@ -359,4 +359,8 @@ textarea {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+#searchOptionContainer {
+  margin: 0 4px;
 }

@@ -16,5 +16,4 @@ const firebase = initializeApp(firebaseConfig);
 export const authService = getAuth(firebase);
 export const dbService = getFirestore(firebase);
 export const createUser = createUserWithEmailAndPassword;
-export const signAccount = signInWithEmailAndPassword;
-export { addDoc, collection, onSnapshot, query, orderBy, deleteDoc, doc };
+export { addDoc, collection, onSnapshot, query, orderBy, deleteDoc, doc, signInWithEmailAndPassword };
