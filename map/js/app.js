@@ -8,7 +8,7 @@ import {
   deleteDoc,
   doc,
 } from "../../fbase.js";
-import { userId } from '../../main.js';
+import { userId, userName } from "../../main.js";
 
 const mapContainer = document.getElementById("map"); // 지도를 표시할 div
 const mapOption = {
@@ -60,7 +60,6 @@ const $searchButton = document.querySelector("#searchButton");
 const hospital_notice_list = []; // 병원 정보 전체 배열
 const find_list = []; // 검색 결과에 대한 배열
 const markers = []; // 마커를 담을 배열
-const customOverlays = [];
 
 fetch("./myArray.json")
   .then((response) => response.json())
@@ -173,8 +172,10 @@ function makeHospitalInfo(hospital_notice) {
   const hospital_category = document.createElement("span");
 
   hospital_name.innerText = hospital_notice.요양기관명;
-  hospital_name.addEventListener("click", () =>
-    setNewCenter(hospital_notice["좌표(Y)"], hospital_notice["좌표(X)"])
+  hospital_name.addEventListener(
+    "click",
+    () => makeToggleContent(hospital_notice)
+    // setNewCenter(hospital_notice["좌표(Y)"], hospital_notice["좌표(X)"])
   );
   hospital_category.innerText = hospital_notice.종별코드명;
   hospital_info.append(hospital_name);
@@ -222,6 +223,7 @@ async function onAddReview(hospital_notice) {
     {
       context: $review_context_area.value,
       creatorId: userId,
+      creatorName: userName,
       createdAt: Date.now(),
     }
   );
@@ -238,7 +240,7 @@ function onClickReviewAddBtn(hospital_notice) {
     return;
   } else {
     onAddReview(hospital_notice);
-    closeReviewFormContainer();
+    makeToggleContent(hospital_notice);
   }
 }
 
@@ -282,6 +284,8 @@ function makeReviewContainer(hospital_notice) {
   total_rate_star.innerText = "★ ★ ★ ★ ★";
   rate_info.append(total_rate_num);
   rate_info.append(total_rate_star);
+  review_container.append(rate_info);
+
   if (userId) {
     const write_review = document.createElement("span");
     write_review.innerText = "리뷰 쓰기";
@@ -290,7 +294,6 @@ function makeReviewContainer(hospital_notice) {
     );
     review_container.append(write_review);
   }
-  review_container.append(rate_info);
   $toggleContainer_main.append(review_container);
 }
 
@@ -313,12 +316,12 @@ function getReviewFromFirestore(hospital_name) {
   });
 }
 
-async function onClickReviewDeleteBtn(reviewArr, hospital_name) {
-  console.log(reviewArr, hospital_name);
+async function onClickReviewDeleteBtn(reviewArr, hospital_notice) {
   const ok = confirm("정말 삭제 하시겠습니까 ? ");
   if (ok) {
-    const reviewRef = doc(dbService, hospital_name, reviewArr.id);
+    const reviewRef = doc(dbService, hospital_notice.요양기관명, reviewArr.id);
     await deleteDoc(reviewRef);
+    makeToggleContent(hospital_notice);
   } else {
     return;
   }
@@ -327,7 +330,7 @@ async function onClickReviewDeleteBtn(reviewArr, hospital_name) {
 function onClickReviewUpdateBtn() {
   return;
 }
-function makeReview(review_list_container, reviewsArr, hospital_name) {
+function makeReview(review_list_container, reviewsArr, hospital_notice) {
   if (reviewsArr.length !== 0) {
     for (let i = 0; i < reviewsArr.length; i++) {
       const review_container = document.createElement("div");
@@ -335,20 +338,26 @@ function makeReview(review_list_container, reviewsArr, hospital_name) {
       const review_context = document.createElement("p");
       review_context.innerText = reviewsArr[i].context;
       review_container.append(review_context);
+      const user_info = document.createElement("span");
+      user_info.setAttribute("class", "review_user_info");
+      user_info.innerText = `${reviewsArr[i].creatorName}`;
+      review_container.append(user_info);
 
-      const review_tool_btns = document.createElement("div");
-      review_tool_btns.setAttribute("class", "review_tool_btns");
-      const review_update_btn = document.createElement("button");
-      const review_delete_btn = document.createElement("button");
-      review_update_btn.innerText = "수정";
-      review_delete_btn.innerText = "삭제";
-      review_update_btn.addEventListener("click", onClickReviewUpdateBtn);
-      review_delete_btn.addEventListener("click", () =>
-        onClickReviewDeleteBtn(reviewsArr[i], hospital_name)
-      );
-      review_tool_btns.append(review_update_btn);
-      review_tool_btns.append(review_delete_btn);
-      review_container.append(review_tool_btns);
+      if (reviewsArr[i].creatorId === userId) {
+        const review_tool_btns = document.createElement("div");
+        review_tool_btns.setAttribute("class", "review_tool_btns");
+        const review_update_btn = document.createElement("button");
+        const review_delete_btn = document.createElement("button");
+        review_update_btn.innerText = "수정";
+        review_delete_btn.innerText = "삭제";
+        review_update_btn.addEventListener("click", onClickReviewUpdateBtn);
+        review_delete_btn.addEventListener("click", () =>
+          onClickReviewDeleteBtn(reviewsArr[i], hospital_notice)
+        );
+        review_tool_btns.append(review_update_btn);
+        review_tool_btns.append(review_delete_btn);
+        review_container.append(review_tool_btns);
+      }
       review_list_container.append(review_container);
     }
   } else {
@@ -358,13 +367,13 @@ function makeReview(review_list_container, reviewsArr, hospital_name) {
     review_list_container.append(noReview);
   }
 }
-function makeReviewList(hospital_name) {
+function makeReviewList(hospital_notice) {
   const review_list_container = document.createElement("div");
   review_list_container.setAttribute("class", "review_list_container");
 
-  getReviewFromFirestore(hospital_name)
+  getReviewFromFirestore(hospital_notice.요양기관명)
     .then((reviewsArr) => {
-      makeReview(review_list_container, reviewsArr, hospital_name);
+      makeReview(review_list_container, reviewsArr, hospital_notice);
     })
     .catch((error) => {
       console.log(error);
@@ -380,8 +389,11 @@ function makeToggleContent(hospital_notice) {
   $toggleContainer_main.innerHTML = "";
   // 토글 창 내용 설정
   makeHospitalInfo(hospital_notice);
+  const hospital_info_container = (document.querySelector(
+    ".hospital_info_container"
+  ).style.backgroundColor = "#eff7ff");
   makeReviewContainer(hospital_notice);
-  makeReviewList(hospital_notice.요양기관명);
+  makeReviewList(hospital_notice);
   openToggleContainer();
   // 토글 창 열기
 }
@@ -452,8 +464,9 @@ function onHandleSearchInput(searchValue) {
 
 function openToggleContainer() {
   $toggleContainer_main.style.display = "block";
-  $toggleContainer_toggleBtn.style.left = `${$toggleContainer.clientWidth - 1
-    }px`;
+  $toggleContainer_toggleBtn.style.left = `${
+    $toggleContainer.clientWidth - 1
+  }px`;
   $toggleContainer_toggleBtn.innerHTML = `
   <i class="fa-solid fa-angle-left"></i>`;
 }
@@ -518,7 +531,7 @@ function createTypeOptions(option) {
 }
 
 function onHandleOptionUpdateBtn() {
-  markers.forEach((marker) => marker.setMap(null));
+  clusterer.clear();
   markers.length = 0;
 
   hospital_notice_list.forEach((hospitalInfo) => {
@@ -527,6 +540,7 @@ function onHandleOptionUpdateBtn() {
       markers.push(marker);
     }
   });
+  clusterer.addMarkers(markers);
   closeOptionToggleContainer();
 }
 

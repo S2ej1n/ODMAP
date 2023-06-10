@@ -117,6 +117,10 @@ textarea {
 #main_container #toggleContainer #toggleContainer_main .hospital_info_container {
   border-bottom: 1px solid #e6e1e1;
   padding: 18px 20px;
+  background-color: white;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info_container:hover {
   background-color: #eff7ff;
 }
 
@@ -237,6 +241,11 @@ textarea {
   padding: 18px 20px 0px;
   border-top:1px solid #e6e1e1;
   border-bottom:1px solid #e6e1e1;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_list_container .review .review_user_info {
+  font-size: 12px;
+  color: #504e4e;
 }
 
 #main_container #toggleContainer #toggleContainer_main .review_list_container .review .review_tool_btns {
