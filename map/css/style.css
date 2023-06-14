@@ -20,6 +20,7 @@ nav {
   font-size:30px;
   height: 60px;
   font-family: 'Noto Serif KR', serif;
+  font-weight: bold;
 }
 
 .navbar__logo{
@@ -342,12 +343,28 @@ textarea {
   border: 1px #504e4e solid;
   padding: 12px;
 }
-#options span {
+
+#options #options_containers {
+  display: flex;
+}
+
+.options_container {
+  margin: 0 4px;
+  max-height: 300px;
+  overflow: auto;
+}
+.options_container span{
   font-size: 12px;
   font-family: 'Gothic A1', sans-serif;
+  font-weight: bold;
 }
 
 #hospital_type_container label{
+  font-size: 10px;
+  font-family: 'Gothic A1', sans-serif;
+}
+
+#hospital_type_detail_container label{
   font-size: 10px;
   font-family: 'Gothic A1', sans-serif;
 }

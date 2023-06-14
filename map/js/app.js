@@ -9,6 +9,7 @@ import {
   doc,
 } from "../../fbase.js";
 import { userId, userName } from "../../main.js";
+import { options_detail, options } from './data.js';
 
 const mapContainer = document.getElementById("map"); // 지도를 표시할 div
 const mapOption = {
@@ -25,22 +26,12 @@ const clusterer = new kakao.maps.MarkerClusterer({
 });
 
 const filterOptions = [];
-const options = [
-  { id: "option1", value: "상급종합" },
-  { id: "option2", value: "종합병원" },
-  { id: "option3", value: "병원" },
-  { id: "option4", value: "요양병원" },
-  { id: "option5", value: "의원" },
-  { id: "option6", value: "치과병원" },
-  { id: "option7", value: "치과의원" },
-  { id: "option8", value: "보건의료원" },
-  { id: "option9", value: "정신병원" },
-  { id: "option10", value: "한방병원" },
-  { id: "option11", value: "한의원" },
-];
+const filterOptions_detail = [];
+
 const $hospital_type_container = document.querySelector(
   "#hospital_type_container"
 );
+const $hospital_type_detail_container = document.querySelector("#hospital_type_detail_container");
 const $toggle_option_btn = document.querySelector("#toggleOption");
 const $options = document.querySelector("#options");
 const $option_update_btn = document.querySelector("#optionUpdateBtn");
@@ -152,6 +143,7 @@ function createMarker(hospital_notice) {
   });
   let customOverlay;
   kakao.maps.event.addListener(marker, "click", function () {
+    console.log(hospital_notice.진료과목코드명);
     makeToggleContent(hospital_notice);
   });
   kakao.maps.event.addListener(marker, "mouseover", function () {
@@ -464,9 +456,8 @@ function onHandleSearchInput(searchValue) {
 
 function openToggleContainer() {
   $toggleContainer_main.style.display = "block";
-  $toggleContainer_toggleBtn.style.left = `${
-    $toggleContainer.clientWidth - 1
-  }px`;
+  $toggleContainer_toggleBtn.style.left = `${$toggleContainer.clientWidth - 1
+    }px`;
   $toggleContainer_toggleBtn.innerHTML = `
   <i class="fa-solid fa-angle-left"></i>`;
 }
@@ -499,18 +490,19 @@ function closeOptionToggleContainer() {
 }
 
 function onHandleToggleOptionBtn() {
-  console.log("clicked");
   if ($options.style.display === "none") {
-    console.log("none");
     openOptionToggleContainer();
   } else {
-    console.log("block");
     closeOptionToggleContainer();
   }
 }
 
 for (let i = 0; i < options.length; i++) {
   createTypeOptions(options[i]);
+}
+
+for (let i = 0; i < options_detail.length; i++) {
+  createTypeDetailOptions(options_detail[i]);
 }
 
 function createTypeOptions(option) {
@@ -530,14 +522,43 @@ function createTypeOptions(option) {
   $hospital_type_container.appendChild(br);
 }
 
+function createTypeDetailOptions(option) {
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = option.id;
+  checkbox.value = option.value;
+
+  const label = document.createElement("label");
+  label.htmlFor = option.id;
+  label.textContent = option.value;
+
+  const br = document.createElement("br");
+
+  $hospital_type_detail_container.appendChild(checkbox);
+  $hospital_type_detail_container.appendChild(label);
+  $hospital_type_detail_container.appendChild(br);
+}
+
 function onHandleOptionUpdateBtn() {
   clusterer.clear();
   markers.length = 0;
 
   hospital_notice_list.forEach((hospitalInfo) => {
     if (filterOptions.includes(hospitalInfo.종별코드명)) {
-      const marker = createMarker(hospitalInfo);
-      markers.push(marker);
+      if (filterOptions_detail.length !== 0) {
+        const departments = hospitalInfo.진료과목코드명.split(", ");
+        filterOptions_detail.map((option) => {
+          if (departments.includes(option)) {
+            const marker = createMarker(hospitalInfo);
+            markers.push(marker);
+            return
+          }
+        })
+      }
+      else {
+        const marker = createMarker(hospitalInfo);
+        markers.push(marker);
+      }
     }
   });
   clusterer.addMarkers(markers);
@@ -551,13 +572,26 @@ getCurrentLocation();
 $hospital_type_container.addEventListener("change", function (event) {
   const checkbox = event.target;
   const value = checkbox.value;
-
   if (checkbox.checked) {
     filterOptions.push(value);
   } else {
     const index = filterOptions.indexOf(value);
     if (index > -1) {
       filterOptions.splice(index, 1);
+    }
+  }
+});
+
+$hospital_type_detail_container.addEventListener("change", function (event) {
+  const checkbox = event.target;
+  const value = checkbox.value;
+
+  if (checkbox.checked) {
+    filterOptions_detail.push(value);
+  } else {
+    const index = filterOptions_detail.indexOf(value);
+    if (index > -1) {
+      filterOptions_detail.splice(index, 1);
     }
   }
 });
