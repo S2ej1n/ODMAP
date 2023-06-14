@@ -5,7 +5,7 @@
 }
 
 .qBox {
-    background-color:#8da0ff;
+    background-color: #d6ddff;
     text-align: center;
     font-size: 22px;
     width: 300;
@@ -13,7 +13,7 @@
     margin-bottom: 30px;
     border-radius:20px;
     padding: 50px;
-    color : #ffffff;
+    color : #3c52be;
     border-color: #ffffff;
     border-style: solid;
     transition: background-color 0.6s ease;
@@ -21,7 +21,7 @@
   
   /*js에서 만든 클래스 -> 버튼 세개 한번에 선택*/
   .answerList {
-    background-color: #d6ddff;
+    background-color: #ffffff ;
     display: block; /*버튼을 한 줄에 하나씩 할당하기 위해서*/
     width: 100%;
     cursor: pointer;
@@ -29,14 +29,15 @@
     border-radius:50px;
     padding: 20px;
     font-size: 20px;
-    color : #3c52be;
-    border: none;
+    color : #3c52be ;
+    border-color: #d6ddff;
+    border-style: solid;
     transition: background-color 0.6s ease;
   }
   
   /*버튼이 올려졌을때와 클릭되었을때 변경*/
   .answerList:hover, .answerList:focus {
-    background-color: #ffffff;
+    background-color: #f7f8ff;
     border-color: #3c52be;
     transform: translateY(-3px);
   }

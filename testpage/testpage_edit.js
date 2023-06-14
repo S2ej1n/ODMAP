@@ -184,15 +184,20 @@ function goNext(qIdx){
       dot.classList.add('visited');
 
       /* 이 부분은 이전으로 이동하기 위한 함수 */
-      // dot.dataset.questionIndex = i; // 데이터 속성에 질문 인덱스 저장
-      // dot.addEventListener('click', function(event) {
-      //   var clickedIndex = event.target.dataset.questionIndex;
-      //   goNext(parseInt(clickedIndex)); // 클릭된 도트의 질문 인덱스로 이동
+      dot.dataset.questionIndex = i; // 데이터 속성에 질문 인덱스 저장
+      dot.addEventListener('click', function(event) {
+        var clickedIndex = event.target.dataset.questionIndex;
+        goNext(parseInt(clickedIndex)); // 클릭된 도트의 질문 인덱스로 이동
         
-      //   //현재 답변 숨기기
-      //   var currentAnswers = document.querySelectorAll('.answerList');
+        var q = document.querySelector(".qBox");
+        q.innerHTML = qnaList[clickedIndex].q;  
 
-      // });
+        var cAncer = document.querySelector('.answerBox');
+        cAncer.innerHTML = '';
+        for (let i in qnaList[clickedIndex].a) {
+          addAnswer(qnaList[clickedIndex].a[i].answer, qIdx, i);
+        }
+      });
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       
@@ -204,82 +209,3 @@ function goNext(qIdx){
   }
 
 }
-
-
-
-
-// 하단의 버튼에 대한 기능 구현
-// 하단에 있는 동그라미 버튼에 대한 함수
-const circleButtons = document.querySelectorAll(".box"); // 하단의 버튼들
-
-// 질문지 넘어가기 위한 goNext2() 함수
-function goNext2(qIdx) {
-  if (qIdx === endPoint) {
-    goResult();
-    return;
-  }
-
-  var q = document.querySelector(".qBox");
-  q.innerHTML = qnaList[qIdx].q;
-
-
-  var answerButtons = document.querySelectorAll(".answerList");
-  for (let i = 0; i < answerButtons.length; i++) {
-    answerButtons[i].disabled = false;
-    answerButtons[i].style.display = "inline-block";
-    answerButtons[i].style.WebkitAnimation = "fadeIn 0.5s";
-    answerButtons[i].style.animation = "fadeIn 0.5s";
-  }
-
-  // 답변 칸 초기화 ~~~~~~~~~~~
-  var answerContainer = document.querySelector('.answerBox');
-  answerContainer.innerHTML = '';
-
-  // 추가되는 답변 칸 막기
-  for (let i in qnaList[qIdx].a) {
-    addAnswer(qnaList[qIdx].a[i].answer, qIdx, i);
-  }
-
-  // 버튼 활성화 처리
-  var buttons = document.querySelectorAll(".box");
-  buttons.forEach(function(button, index) {
-    button.classList.remove("active"); // 모든 버튼의 active 클래스 제거
-    if (index === qIdx) {
-      button.classList.add("active"); // 현재 질문에 해당하는 버튼에 active 클래스 추가
-    }
-  });
-
-  // 버튼 활성화 처리
-  var buttons = document.querySelectorAll(".box");
-  buttons.forEach(function(button, index) {
-    button.classList.remove("active"); // 모든 버튼의 active 클래스 제거
-    if (index === qIdx) {
-      button.classList.add("active"); // 현재 질문에 해당하는 버튼에 active 클래스 추가
-    }
-  });
-
-  var status = document.querySelector(".statusBar");
-  status.style.width = ((100 / endPoint) * (qIdx + 1)).toFixed(1) + "%";
-}
-
-// 버튼이 클릭 될 시 이벤트 리스너
-for (let i = 0; i < circleButtons.length; i++) {
-  circleButtons[i].addEventListener("click", function () {
-    var answerButtons = document.querySelectorAll(".answerList");
-
-    for (let j = 0; j < answerButtons.length; j++) {
-      answerButtons[j].disabled = true;
-      answerButtons[j].style.WebkitAnimation = "fadeOut 0.5s";
-      answerButtons[j].style.animation = "fadeOut 0.5s";
-    }
-
-    setTimeout(() => {
-      goNext2(i); // 클릭한 버튼의 인덱스를 전달해서 이동하도록
-
-      // 추가된 답변 칸 보이기
-      var answerContainer = document.querySelector('.answerBox');
-      answerContainer.style.display = "block";
-
-    }, 450);
-  });
-};
