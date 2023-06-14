@@ -4,7 +4,6 @@
 
 body {
   margin: 0;
-  background-color: black;
   height: 100vh;
 }
 
@@ -18,17 +17,29 @@ body {
 #make_account_container {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 400px;
   padding: 40px;
-  background-color: white;
+  background-color: rgb(243, 225, 225);
+  border-radius: 12px;
 }
 
-#make_account_container #make_account_form {
+#make_account_form {
   display: flex;
   flex-direction: column;
+  margin-bottom: 8px;
+  border: 1px solid #e6e1e1;
 }
 
-#make_account_container #make_account_form input {
+#make_account_form input {
   padding: 8px 4px;
+  border: none;
+  border-bottom: 1px solid #e6e1e1;
+}
+
+#make_account_btn {
+  color: white;
+  background-color: black;
+  padding: 8px 0;
+  border-radius: 20px;
 }
 
