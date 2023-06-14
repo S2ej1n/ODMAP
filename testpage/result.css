@@ -1,52 +1,43 @@
 #result{
-    display: none;
-    background-color: whitesmoke;
-    width: 80%;
-    text-align: center;
-    border-radius: 20px;
-    margin:auto;
-  }
-  
-  .resultname{
-    font-size: 26px;
-  }
-  
-  .resultDesc{
-    font-size: 20px;
-    margin-bottom:20px;
-  }
+  display: none;
+  background-color: white;
+  width: 80%;
+  text-align: center;
+  border-radius: 20px;
+  margin:auto;
+}
 
-  /*버튼 수정*/
-  .find_but{
-    background-color: #d6ddff;
-    display: block; /*버튼을 한 줄에 하나씩 할당하기 위해서*/
-    width: 100%;
-    cursor: pointer;
-    margin-bottom: 30px;
-    border-radius:50px;
-    padding: 20px;
-    font-size: 20px;
-    color : #3c52be;
-    border: none;
-    transition: background-color 0.6s ease;
-  }
+.resultname{
+  font-size: 27px;
+  color: #3c52be;
+  font-weight: 600;
+}
 
-  .find_but:hover, .find_but:focus {
-    background-color: #ffffff;
-    border-color: #3c52be;
-    transform: translateY(-3px);
-  }
+.resultDesc{
+  margin-top: 50px;
+  font-size: 20px;
+  margin-bottom:50px;
+  line-height : 1.8;
+}
 
-  /* .kakao{
-    color: white;
-    background-color: #9bcfff;
-    font-size: 20px;
-    border: 0px;
-    border-radius: 20px;
-  } */
-  
-  .kakao:hover, .kakao:focus {
-    background-color: whitesmoke;
-    color: #0b0080;
-  }
-  
+/*버튼 수정*/
+.find_but{
+  background-color: #d6ddff;
+  display: block; /*버튼을 한 줄에 하나씩 할당하기 위해서*/
+  width: 100%;
+  cursor: pointer;
+  border-radius:50px;
+  padding: 20px;
+  font-size: 20px;
+  color : #3c52be;
+  border: none;
+  transition: background-color 0.6s ease;
+}
+
+.find_but:hover, .find_but:focus {
+  background-color: #ffffff;
+  border-color: #3c52be;
+  transform: translateY(-3px);
+}
+
+
