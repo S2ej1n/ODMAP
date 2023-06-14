@@ -4,6 +4,7 @@
     width: 80%;
     text-align: center;
     border-radius: 20px;
+    margin:auto;
   }
   
   .resultname{
@@ -12,6 +13,7 @@
   
   .resultDesc{
     font-size: 20px;
+    margin-bottom:20px;
   }
   
   .kakao{
