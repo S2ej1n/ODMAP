@@ -1,0 +1,391 @@
+* {
+  font-family: 'Gothic A1', sans-serif;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/*헤더*/
+nav {
+  display: inline-block;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 8px 20px;
+  font-size: 30px;
+  height: 60px;
+}
+
+.navbar__logo {
+  margin-top: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+.navbar__menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+.navbar__menu li {
+  padding: 8px 30px;
+}
+
+
+.navbar__menu li:hover {
+  transform: translateY(-4px);
+}
+
+/*------*/
+p {
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+#main_header {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e6e1e1;
+}
+
+#main_header a {
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+#main_header a img {
+  width: 100%;
+  height: 100%;
+}
+
+#main_container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 50px);
+  font-family: serif;
+}
+
+#main_container #toggleContainer {
+  position: relative;
+}
+
+#main_container #toggleContainer #toggleContainer_main {
+  width: 320px;
+  height: 100%;
+  box-shadow: 5px 5px 15px 2px rgba(0,0,0,0.2);
+  background-color: #fff;
+  border: 1px solid #e6e1e1;
+  flex-direction: column;
+  overflow: auto;
+}
+
+#toggleContainer_toggleBtn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 100;
+  background-color: white;
+  transform: translateY(-50%);
+  padding: 8px 4px;
+  border: 1px solid #e6e1e1;
+}
+
+#toggleContainer_toggleBtn i {
+  font-size: 20px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info_container {
+  border-bottom: 1px solid #e6e1e1;
+  padding: 18px 20px;
+  background-color: white;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info_container:hover {
+  background-color: #eff7ff;
+}
+
+.hospital_info {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.hospital_info h3 {
+  font-size: 16px;
+  margin: 0;
+  margin-right: 8px;
+  max-width: 190px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info h3:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.hospital_info span {
+  font-size: 12px;
+  color: #888;
+}
+
+.hospital_info_detail {
+  font-size: 12px;
+  letter-spacing: -1px;
+}
+
+.hospital_info_detail p {
+  margin-bottom: 4px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info_detail a {
+  font-size: 14px;
+  color: #504e4e;
+}
+
+#main_container #toggleContainer #toggleContainer_main .hospital_info_detail a:hover {
+  text-decoration: underline;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_container .rate_info {
+  display: flex;
+  align-items: center;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_container .rate_info span{
+  margin-right: 4px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_container .rate_info div {
+  text-align: center;
+  font-size: 12px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_container span {
+  font-size: 12px;
+  color: #888;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_container span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #888888e6;
+}
+
+#main_container #toggleContainer #toggleContainer_main .reviewForm {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .reviewForm h3 {
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 12px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .reviewForm #review_context_area {
+  padding: 8px 8px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .reviewForm #review_add_btn {
+  border: none;
+  width: fit-content;
+  padding: 4px 8px;
+  font-size: 12px;
+  background-color: rgb(206, 255, 238);
+  border: 1px solid #e6e1e1;
+  cursor: pointer;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_list_container {
+  display: flex;
+  flex-direction: column;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_list_container .noReview {
+  text-align: center;
+  font-size: 16px;
+  color: #504e4e;
+  margin: 100px 0px;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_list_container .review{
+  padding: 18px 20px 0px;
+  border-top:1px solid #e6e1e1;
+  border-bottom:1px solid #e6e1e1;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_list_container .review .review_user_info {
+  font-size: 12px;
+  color: #504e4e;
+}
+
+#main_container #toggleContainer #toggleContainer_main .review_list_container .review .review_tool_btns {
+  margin-bottom: 8px;
+  text-align: right;
+}
+#main_container #toggleContainer #toggleContainer_main .review_list_container .review p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+#main_container #toggleContainer #toggleContainer_main .review_list_container .review .review_tool_btns button {
+  border: none;
+  padding: 4px 8px;
+  font-size: 8px;
+  margin-left: 4px;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+#searchContainer {
+  position: absolute;
+  display: flex;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background-color: white;
+  padding: 12px 8px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 5px 7px 5px rgba(0,0,0,0.2);
+}
+
+#searchContainer #myLocation_btn {
+  border: none;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+#searchContainer #search_input_container {
+  position: relative;
+  display: inline-block;
+}
+
+#searchContainer #search_input_container #searchInput {
+  width: 200px;
+  height: 10px;
+  padding: 6px;
+  border:none;
+  
+}
+
+#searchContainer #search_input_container #search_result_list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 100px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+#searchContainer #search_input_container #search_result_list .search_result {
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 4px;
+}
+
+#searchContainer #searchButton{
+  border: none;
+  background-color: inherit;
+  padding: 0 4px;
+  cursor: pointer;
+}
+#toggleOption {
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+#options {
+  position:absolute;
+  top: 70px;
+  left: 37%;
+  z-index: 200;
+  background-color: #fff;
+  border: 1px #504e4e solid;
+  padding: 12px;
+}
+
+#options #options_containers {
+  display: flex;
+}
+
+.options_container {
+  margin: 0 4px;
+  max-height: 300px;
+  overflow: auto;
+}
+.options_container span{
+  font-size: 12px;
+  font-family: 'Gothic A1', sans-serif;
+  font-weight: bold;
+}
+
+#hospital_type_container label{
+  font-size: 10px;
+  font-family: 'Gothic A1', sans-serif;
+}
+
+#hospital_type_detail_container label{
+  font-size: 10px;
+  font-family: 'Gothic A1', sans-serif;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.customoverlay {
+  background-color: white;
+  border: 1px solid #504e4e;
+  padding: 8px;
+  max-width: 255px;
+}
+
+.customoverlay .hospital_info_detail p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#searchOptionContainer {
+  margin: 0 4px;
+}

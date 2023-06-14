@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: blanchedalmond;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.login_form_container {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  border: 0;
+  border-radius: 5px;
+  background-color: burlywood;
+  padding: 20px;
+  margin-top: 20px;
+
+}
+
+.login_form_container .login_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.make_account {
+  text-align: right;
+}
+
+.text-field {
+  font-size: 14px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+
+}
+
+.submit-btn {
+  color: black;
+  font-size: 15px;
+  background-color: cyan;
+  margin-bottom: 30px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+
+}
+
+.links {
+  text-align: center;
+}
+
+.links a {
+  font-size: 12px;
+  color: aliceblue;
+}

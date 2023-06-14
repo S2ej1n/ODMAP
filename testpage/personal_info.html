@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ODTEST</title>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="personal_info.css">
+        <style>
+            *{font-family: 'Gothic A1', sans-serif;
+            font-family: 'Noto Serif KR', serif;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 헤더 -->
+        <nav class="navbar">
+
+            <div class="navbar__logo">
+                <span id="nav_logo"><a href="../main/main.html"><img src="../img/ODLOGO.png" width="150px"></a></span>
+            </div>
+      
+            <ul class="navbar__menu">
+                <li><a href="../testpage/personal_info.html">ODTEST</a></li>
+                <li><a href="../map/map.html">HOSPITAL</a></li>
+                <!-- <li><a href="../login/review2.html">REVIEW</a></li> -->
+                <li><a href="../login/login.html">LOGIN</a></li>
+            </ul>
+
+        </nav>
+            <div class="mainBox">
+                <div class="b_Box">
+                    <h1 style="color: #4b5baa;" id="p_title">기본 정보 입력</h1>
+                    <p>테스트를 위한 기본 정보를 입력해주세요. <br>
+                        개인정보는 테스트 이외에 사용되지 않으며,수집되거나 저장되지 않습니다.
+                    </p>
+                    <br>
+                    <hr>
+                    <br>
+                    <h3>성별</h3>
+                    <div class="gender">
+                            <select id="gender" name="gender">
+                                <option value="">-- 선택하세요 --</option>
+                                <option value="woman">여</option>
+                                <option value="man">남</option>
+                            </select>
+                    </div>
+
+                    <h3>직업군</h3>
+                    <div class="work">
+                            <select id="jobSelect">
+                                <option value="">-- 선택하세요 --</option>
+                                <option value="1">1. 관리직,사무직</option>
+                                <option value="2">2. 연구직, 공학 기술직</option>
+                                <option value="3">3. 경찰, 군인, 소방관, 스포츠직, 경호직</option>
+                                <option value="4">4. 교육, 법률직</option>
+                                <option value="5">5. 보건.의료, 예술, 방송직, 서비스, 종교직</option>
+                                <option value="6">6. 운전, 운송직</option>
+                                <option value="7">7. 건설, 정비직</option>
+                                <option value="8">8. 농림어업직</option>
+                                <option value="9">9. 서비스직</option>
+                                <option value="10">10. 청소,미용직</option>
+                            </select>
+                    </div>
+                
+                    <button class="tbut2" onclick="startTest();">
+                        테스트 시작</button>
+                </div>
+            </div>
+            <script src="personal_info.js"></script>
+    </body>
+</html>
