@@ -41,22 +41,6 @@
     transform: translateY(-3px);
   }
   
-
-  /*상태바 부분*/
-  .status {
-    height: 20px;
-    width: 80%;
-    background-color: white;
-    border-radius: 20px;
-  }
-  
-  .statusBar {
-    height: 100%;
-    border-radius: 20px;
-    background: #8da0ff;
-  }
-
-
  /* 점 모양 진행도 css */
  .progressDots {
   display: flex;

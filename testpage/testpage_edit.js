@@ -140,9 +140,12 @@ function addAnswer(answerText, qIdx, idx){
       goNext(++qIdx); //그 다음 goNext의 값을 하나 증가해서 호출한다.
     },450)
   }, false);
+
+  // 현재 답변 버튼에 'current' 클래스 추가
+  answer.classList.add('current');
+  a.appendChild(answer);
+  //~~~~~
 }
-
-
 
 //시작 인덱스를 0으로
 let qIdx = 0;
@@ -188,9 +191,7 @@ function goNext(qIdx){
         
       //   //현재 답변 숨기기
       //   var currentAnswers = document.querySelectorAll('.answerList');
-      //   for (let i = 0; i < currentAnswers.length; i++) {
-      //     currentAnswers[i].style.display = 'none';
-      //   }
+
       // });
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
