@@ -1,95 +1,84 @@
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ODTEST</title>
 
-        <link rel="stylesheet" href="testpage.css">
-        <link rel="stylesheet" href="qna.css">
-        <link rel="stylesheet" href="result.css">
-        <link rel="stylesheet" href="animation.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Noto+Serif+KR&display=swap" rel="stylesheet">
-        <style>
-            *{font-family: 'Gothic A1', sans-serif;
-            font-family: 'Noto Serif KR', serif;
-            }
-        </style>
-    </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ODTEST</title>
 
-    <body>
-        <nav class="navbar">
+  <link rel="stylesheet" href="testpage.css">
+  <link rel="stylesheet" href="qna.css">
+  <link rel="stylesheet" href="result.css">
+  <link rel="stylesheet" href="animation.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Noto+Serif+KR&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Gothic A1', sans-serif;
+      font-family: 'Noto Serif KR', serif;
+    }
+  </style>
+</head>
 
-            <div class="navbar__logo">
-                <span id="nav_logo"><a href="../main/main.html"><img src="../img/ODLOGO.png" width="150px"></a></span>
-            </div>
-      
-            <ul class="navbar__menu">
-                <li><a href="../testpage/personal_info.html">ODTEST</a></li>
-                <li><a href="../map/map.html">HOSPITAL</a></li>
-                <li><a href="../login/review2.html">REVIEW</a></li>
-                <li><a href="../login/login.html">LOGIN</a></li>
-            </ul>
+<body>
+  <nav class="navbar">
+    <div class="navbar__logo">
+      <span id="nav_logo"><a href="../main/main.html"><img src="../img/ODLOGO.png" width="150px"></a></span>
+    </div>
+    <ul class="navbar__menu">
+      <li><a href="../testpage/personal_info.html">ODTEST</a></li>
+      <li><a href="../map/map.html">HOSPITAL</a></li>
+      <li><a href="../login/review2.html">REVIEW</a></li>
+      <li><a href="../login/login.html">LOGIN</a></li>
+    </ul>
+  </nav>
 
-        </nav>
-        
-        <div class="mainBox">
-            <div class="container">
-                <!--큐앤에이 부분-->
-                <section id="qna">
-                    <div class="status mx-auto mt-5">
-                    <div class="statusBar">
-                    </div>
-                    
-                    </div>
-                    <!--qBox라는 이름을 가지고 있는 공간 만듬.-->
-                    <!--my-5 py-3 는 마진과 패딩 설정한부분-->
-                    <div class="qBox my-5 py-3 mx-auto">
-            
-                    </div>
-                    <div class="answerBox">
-            
-                    </div>
-                    
-                    <div class="btn">
-                        <button class="box" id="box1" type="button"></button>
-                        <button class="box" id="box2" type="button"></button>
-                        <button class="box" id="box3" type="button"></button>
-                        <button class="box" id="box4" type="button"></button>
-                        <button class="box" id="box5" type="button"></button>
-                        <button class="box" id="box6" type="button"></button>
-                        <button class="box" id="box7" type="button"></button>
-                        <button class="box" id="box8" type="button"></button>
-                    </div>                    
-                </section>
-            
-                <!--결과 출력 부분-->
-                <section id="result" class="mx-auto my-5 py-5 px-3">
-                    <h1>당신의 결과는...</h1>
-                    <div class="resultname">
-            
-                    </div>
-                    <div id="resultImg" class="my-3 col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
-            
-                    </div>
-                    <div class="resultDesc">
-            
-                    </div>
-                    <button type="button" class="kakao mt-3 py-2 px-3" onclick="">가까운 병원 찾기</button>
-                </section>
-            </div>
+  <div class="mainBox">
+    <div class="container">
+      <!--큐앤에이 부분-->
+      <section id="qna">
+        <!--qBox라는 이름을 가지고 있는 공간 만듬.-->
+        <!--my-5 py-3 는 마진과 패딩 설정한부분-->
+        <div class="qBox my-5 py-3 mx-auto">
+        </div>
+        <div class="answerBox">
+        </div>
 
-            <!-- 페이지 넘기는 버튼 -->
-            <!-- <div class="dotBox" style="text-align: center;">
+        <div class="status mx-auto mt-5">
+          
+          <div class="progressDots">
+          </div>
+
+        </div>
+      </section>
+
+      <!--결과 출력 부분-->
+      <section id="result" class="mx-auto my-5 py-5 px-3">
+        <h1>당신의 결과는...</h1>
+        <div class="resultname">
+
+        </div>
+        <div id="resultImg" class="my-3 col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
+
+        </div>
+        <div class="resultDesc">
+
+        </div>
+        <button type="button" class="find_but" onclick="">가까운 병원 찾기</button>
+      </section>
+    </div>
+
+    <!-- 페이지 넘기는 버튼 -->
+    <!-- <div class="dotBox" style="text-align: center;">
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
             </div> -->
-        </div>
-        <!-- <script type="module">
+  </div>
+  <!-- <script type="module">
             import { startTest, selectedJsFile } from 'personal_info.js';
 
             // selectedJsFile 변수의 값으로 동적으로 스크립트 파일 로드
@@ -98,8 +87,9 @@
             script.charset = 'utf-8';
             document.head.appendChild(script);
         </script>-->
-        
-        <script src="data7.js" charset="utf-8"></script>
-        <script src="testpage_edit.js" charset="utf-8"></script>
-    </body>
+
+  <script src="data7.js" charset="utf-8"></script>
+  <script src="testpage_edit.js" charset="utf-8"></script>
+</body>
+
 </html>
