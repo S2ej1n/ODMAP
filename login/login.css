@@ -1,0 +1,192 @@
+/*전체*/
+body {
+  margin: 0;
+  background-color: #d6ddff;
+}
+
+/*nav 헤더*/
+nav {
+  display: inline-block;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 8px 20px;
+  font-size: 30px;
+  height: 60px;
+}
+
+.navbar__logo {
+  margin-top: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+.navbar__menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+.navbar__menu li {
+  padding: 8px 30px;
+}
+
+
+.navbar__menu li:hover {
+  transform: translateY(-4px);
+}
+
+/*화면 분할*/
+.right {
+  width: 50%;
+  margin-top: 200px;
+  float: right;
+}
+
+/*사진*/
+.left {
+  width: 50%;
+  overflow: hidden;
+  float: left;
+}
+
+.mainPhoto {
+  background: url(./img/slide2.jpg) no-repeat center fixed;
+  height: 100vh;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+
+/*로그인*/
+.login {
+  width: 410px;
+  /* position:absolute; */
+  top: 50%;
+  /* transform:translate(-50%,-50%); */
+  text-align: center;
+  margin: 0 auto;
+}
+
+.login h2 {
+  padding: 0 0 20px;
+  border-bottom: 2px solid #111;
+  text-align: center;
+  line-height: 1;
+  font-size: 32px;
+  color: #111;
+}
+
+.login>ul {
+  padding: 40px 0 33px;
+}
+
+.login>ul li {
+  padding: 0 0 12px;
+  text-align: left;
+}
+
+.login>ul li input {
+  width: 100%;
+  height: 46px;
+  box-sizing: border-box;
+  text-indent: 16px;
+}
+
+.login>ul li input::-webkit-input-placeholder {
+  font-size: 16px;
+  color: #9fa19f;
+}
+
+.login>ul li input[type="checkbox"] {
+  position: absolute;
+  left: -3000%;
+}
+
+.login>ul li input[type="checkbox"]+label {
+  height: 36px;
+  line-height: 36px;
+}
+
+.login>ul li input[type="checkbox"]+label:before {
+  content: "";
+  display: inline-block;
+  margin: 0 10px 0 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #666;
+  background: #fff;
+  vertical-align: -5px;
+}
+
+.login>ul li input[type="checkbox"]:checked+label:before {
+  background: url(../images/ico_check_on.png) no-repeat center #333;
+  border-color: #333;
+}
+
+.login div {
+  padding: 0 0 45px;
+}
+
+.login div ul {
+  display: flex;
+  justify-content: center;
+}
+
+.login div ul li {
+  position: relative;
+  padding: 0 18px;
+}
+
+.login div ul li~li:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  height: 14px;
+  width: 1px;
+  background: #111;
+  transform: rotate(25deg);
+}
+
+.login div ul li a {
+  font-size: 14px;
+  color: #111;
+}
+
+/* .login > a {
+font-size: 14px;
+color: #666;
+border-bottom: 1px solid #666;
+} */
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+/*로그인버튼*/
+.butLogin {
+  cursor: pointer;
+  background-color: #8da0ff;
+  width: 420px;
+  border-radius: 50px;
+  padding: 20px;
+  font-size: 20px;
+  color: #ffffff;
+  border: none;
+  transition: background-color 0.6s ease;
+}
+
+.butLogin:hover {
+  background-color: #4b5baa;
+  transform: translateY(-3px);
+}
