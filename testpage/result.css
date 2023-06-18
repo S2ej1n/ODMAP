@@ -11,6 +11,7 @@
   font-size: 27px;
   color: #3c52be;
   font-weight: 600;
+  margin-bottom: 45px;
 }
 
 .resultDesc{
@@ -39,5 +40,3 @@
   border-color: #3c52be;
   transform: translateY(-3px);
 }
-
-
