@@ -272,8 +272,8 @@ function makeReviewContainer(hospital_notice) {
   const total_rate_star = document.createElement("div");
 
   // write_review.setAttribute("id", "toggleWriteReviewBtn");
-  total_rate_num.innerText = "4.0";
-  total_rate_star.innerText = "★ ★ ★ ★ ★";
+  // total_rate_num.innerText = "4.0";
+  // total_rate_star.innerText = "★ ★ ★ ★ ★";
   rate_info.append(total_rate_num);
   rate_info.append(total_rate_star);
   review_container.append(rate_info);
