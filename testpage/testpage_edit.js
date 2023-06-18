@@ -52,7 +52,7 @@ function setResult(){
   const imgDiv = document.querySelector('#resultImg');
   var imgURL = 'img/image-' + point + '.png';
   resultImg.src = imgURL;
-  resultImg.alt = point; //공유하기 만들때 사용
+  resultImg.alt = point; 
 
   resultImg.classList.add('img-fluid');
   imgDiv.appendChild(resultImg);
