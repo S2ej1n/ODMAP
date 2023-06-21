@@ -272,7 +272,7 @@ function makeReviewContainer(hospital_notice) {
   const total_rate_star = document.createElement("div");
 
   // write_review.setAttribute("id", "toggleWriteReviewBtn");
-  // total_rate_num.innerText = "4.0";
+  // total_rate_num.innerText = "5.0";
   // total_rate_star.innerText = "★ ★ ★ ★ ★";
   rate_info.append(total_rate_num);
   rate_info.append(total_rate_star);
@@ -340,7 +340,7 @@ function makeReview(review_list_container, reviewsArr, hospital_notice) {
         review_tool_btns.setAttribute("class", "review_tool_btns");
         const review_update_btn = document.createElement("button");
         const review_delete_btn = document.createElement("button");
-        review_update_btn.innerText = "수정";
+        // review_update_btn.innerText = "수정";
         review_delete_btn.innerText = "삭제";
         review_update_btn.addEventListener("click", onClickReviewUpdateBtn);
         review_delete_btn.addEventListener("click", () =>
